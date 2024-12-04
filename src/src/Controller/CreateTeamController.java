@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Team;
 import View.CreateTeamView;
 import View.WelcomeView;
 
@@ -19,8 +18,8 @@ public class CreateTeamController implements ActionListener {
         if (e.getSource() == createTeamView.addTeamButton) {
             String sport = createTeamView.sportField.getText().trim();
             String coach = createTeamView.coachField.getText().trim();
-            int absences = Integer.parseInt(createTeamView.absencesField.getText().trim());
-            Team team = new Team(sport, absences);
+            String absences = createTeamView.absencesField.getText().trim();
+            //addTeam(sport, coach, absences);
         }
         else if (e.getSource() == createTeamView.changeCoachButton){
             String sport = createTeamView.sportDropdown.getSelectedItem().toString();

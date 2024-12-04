@@ -3,10 +3,12 @@ package Controller;
 import Model.Athlete;
 import View.RegisterAthleteView;
 import View.WelcomeView;
-import Model.Team;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegisterAthleteController implements ActionListener {
@@ -45,7 +47,6 @@ public class RegisterAthleteController implements ActionListener {
             // Create the StudentAthlete object and pass the map of classes and absences
             Athlete athlete = new Athlete(name, dob, email, id, sport, classAbsences);
 
-            Team.members.add(athlete);
 
             registerAthleteView.firstNameField.setText("");
             registerAthleteView.lastNameField.setText("");
