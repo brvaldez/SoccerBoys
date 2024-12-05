@@ -2,6 +2,7 @@ package View;
 
 import Controller.CreateTeamController;
 import Model.Coach;
+import Model.Component;
 import Model.Team;
 
 
@@ -14,9 +15,10 @@ public class CreateTeamView extends JFrame{
     private JLabel sportLabel, coachLabel, absencesLabel, sportChangeLabel, newCoachLabel, removeSportLabel;
     public JTextField sportField, absencesField;
     public JButton addTeamButton, changeCoachButton, removeTeamButton, returnButton;
-    public JComboBox<Team> sportDropdown, removeSportDropdown;
+    public JComboBox<Team> sportDropdown, sportDropdown2, removeSportDropdown;
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
     private List<Coach> coaches;
+    public static List<Component> members;
     public CreateTeamView(WelcomeView welcomeView, List<Coach> coaches) {
         super("Manage Teams");
         this.coaches = coaches;
@@ -24,11 +26,11 @@ public class CreateTeamView extends JFrame{
         setSize(650, 550);
 
 
-        if (coaches.isEmpty()) {
+        /*if (coaches.isEmpty()) {
             coaches.add(new Coach("Bruno Valdez"));
             coaches.add(new Coach("Manuel Rodriguez"));
             coaches.add(new Coach("Tania Roy"));
-        }
+        }*/
 
         add(CreateTeamComponents());
 
@@ -42,6 +44,7 @@ public class CreateTeamView extends JFrame{
         changeCoachButton.addActionListener(controller);
         removeTeamButton.addActionListener(controller);
         returnButton.addActionListener(controller);
+        sportDropdown2.addActionListener(controller);
         setVisible(true);
     }
 
@@ -49,11 +52,6 @@ public class CreateTeamView extends JFrame{
         JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(20, 20, 20,20));
         panel.setLayout(null);
-
-        /*/ Title
-        JLabel titleLabel = new JLabel("Manage Teams");
-        titleLabel.setBounds(250, 20, 150, 20);
-        frame.add(titleLabel);*/
 
         // Sport Field with Label
         sportField = new JTextField();
@@ -88,9 +86,9 @@ public class CreateTeamView extends JFrame{
         panel.add(addTeamButton);
 
         // Change Coach Section
-        sportDropdown = new JComboBox<>();
-        sportDropdown.setBounds(50, 200, 120, 20);
-        panel.add(sportDropdown);
+        sportDropdown2 = new JComboBox<>();
+        sportDropdown2.setBounds(50, 200, 120, 20);
+        panel.add(sportDropdown2);
 
         sportChangeLabel = new JLabel("Sport");
         sportChangeLabel.setBounds(50, 225, 120, 20);
@@ -128,20 +126,25 @@ public class CreateTeamView extends JFrame{
 
         return panel;
     }
-    public void updateNewCoachDropDown(Team selectedTeam, List<Coach> coaches) {
-        // Criação de uma lista temporária para armazenar os coaches, excluindo o coach atual
-        List<Coach> filteredCoaches = new ArrayList<>();
+    public void updateTeamsDropDown(){
+        sportDropdown2.removeAllItems();
+        removeSportDropdown.removeAllItems();
 
-        // Adicionando todos os coaches que não são o coach atual
+        for (Component team : Team.getMembers()) {
+            sportDropdown2.addItem((Team) team);
+            removeSportDropdown.addItem((Team) team);
+        }
+        repaint();
+        revalidate();
+
+    }
+    public void updateNewCoachDropDown(Team selectedTeam) {
+        newCoachDropDown.removeAllItems();
+        // Add only the coaches not assigned to the selected team
         for (Coach coach : coaches) {
             if (!coach.equals(selectedTeam.getCoach())) {
-                filteredCoaches.add(coach);
+                newCoachDropDown.addItem(coach);
             }
-        }
-        // Atualizando o JComboBox com os coaches filtrados
-        newCoachDropDown.removeAllItems();
-        for (Coach coach : filteredCoaches) {
-            newCoachDropDown.addItem(coach);
         }
     }
 }

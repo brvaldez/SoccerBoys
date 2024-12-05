@@ -16,16 +16,16 @@ public class Team implements Component {
     }
 
     // Method to add a member (Athlete or another Team)
-    public static void addMember(Component member) {
+    public void addMember(Component member) {
         members.add(member);
     }
 
     // Method to remove a member
-    public static void removeMember(Component member) {
+    public void removeMember(Component member) {
         members.remove(member);
     }
 
-    public List<Component> getMembers() {
+    public static List<Component> getMembers() {
         return members;
     }
 
@@ -49,5 +49,10 @@ public class Team implements Component {
 
     public void setCoach(Coach coach) {
         this.coach = coach;
+    }
+
+    @Override
+    public String toString() {
+        return teamName;
     }
 }

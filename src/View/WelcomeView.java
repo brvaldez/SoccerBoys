@@ -18,6 +18,10 @@ public class WelcomeView extends JFrame {
 
         List<Team> teams = new ArrayList<>();
         List<Coach> coaches = new ArrayList<>();
+
+        coaches.add(new Coach("Bruno Valdez"));
+        coaches.add(new Coach("Manuel Rodriguez"));
+        coaches.add(new Coach("Tania Roy"));
         // Listeners
         WelcomeController controller = new WelcomeController(this, teams, coaches);
 
