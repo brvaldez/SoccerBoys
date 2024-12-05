@@ -3,60 +3,83 @@ package Controller;
 import Model.Athlete;
 import Model.Component;
 import View.AbsencesView;
-import View.RegisterAthleteView;
 import View.WelcomeView;
 import Model.Team;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbsencesController implements ActionListener {
     private AbsencesView absencesView;
     private WelcomeView welcomeView;
+
     public AbsencesController(AbsencesView absencesView, WelcomeView welcomeView) {
         this.absencesView = absencesView;
         this.welcomeView = welcomeView;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        // If the register athlete button is clicked
-        if (e.getSource() == absencesView.changeLimitButton) {
-            String sport = absencesView.sportDropDown.getSelectedItem().toString();
+        if (e.getSource() == absencesView.sportDropDown) {
+            Team selectedTeam = (Team) absencesView.sportDropDown.getSelectedItem();
+            updateAthletesList(selectedTeam);
+        }
+        else if (e.getSource() == absencesView.athleteDropDown) {
+            Athlete selectedAthlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
+            updateClassList(selectedAthlete);
+        }
+        else if (e.getSource() == absencesView.changeLimitButton) {
+            Team sport = (Team) absencesView.sportDropDown.getSelectedItem();
             int absences =  Integer.parseInt(absencesView.limitAbsencesField.getText().trim());
-            changeTeamAbsencesLimit(absences);
+            changeTeamAbsencesLimit(sport, absences);
         }
         else if (e.getSource() == absencesView.insertAbsenceButton) {
-            String sport = absencesView.sportDropDown.getSelectedItem().toString();
-            String athlete = absencesView.athleteDropDown.getSelectedItem().toString();
+            Athlete athlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
             String date = absencesView.dateField.getText();
             String classMissed = absencesView.classDropDown.getSelectedItem().toString();
             insertAbsence(athlete, date, classMissed);
         }
         else if (e.getSource() == absencesView.removeAbsenceButton) {
-            String sport = absencesView.sportDropDown.getSelectedItem().toString();
-            String athlete = absencesView.athleteDropDown.getSelectedItem().toString();
+            Athlete athlete = (Athlete)absencesView.athleteDropDown.getSelectedItem();
             String date = absencesView.dateField.getText();
             String classMissed = absencesView.classDropDown.getSelectedItem().toString();
+            removeAbsence(athlete, date,classMissed);
         }
         else if (e.getSource() == absencesView.checkAbsencesButton) {
-            String sport = absencesView.sportDropDown.getSelectedItem().toString();
-            String athlete = absencesView.athleteDropDown.getSelectedItem().toString();
+            Team sport = (Team)absencesView.sportDropDown.getSelectedItem();
+            Athlete athlete = (Athlete)absencesView.athleteDropDown.getSelectedItem();
+            checkAbsences(sport, athlete);
         }
         else if (e.getSource() == absencesView.reportButton) {
-            String sport = absencesView.sportDropDown.getSelectedItem().toString();
-            String athlete = absencesView.athleteDropDown.getSelectedItem().toString();
+            Team sport = (Team)absencesView.sportDropDown.getSelectedItem();
+            Athlete athlete = (Athlete)absencesView.athleteDropDown.getSelectedItem();
+            createReport(sport, athlete);
         }
         else if(e.getSource() == absencesView.returnButton){
             absencesView.setVisible(false);
             welcomeView.setVisible(true);
         }
     }
-    public void changeTeamAbsencesLimit(int absences){
-        Team.setTeamAbsencesLimit(absences);
+    // Update the athletes list in the view based on the selected team
+    public void updateAthletesList(Team selectedTeam) {
+        List<Component> teamAthletes = selectedTeam.getMembers(); // Assuming `getMembers` returns the list of athletes
+        absencesView.updateAthletesList(teamAthletes);
     }
 
-    public void insertAbsence(athlete, date, classMissed){
-        for(class class: classes){
-            if classMissed == class
+    // Update the class list for the selected athlete
+    public void updateClassList(Athlete selectedAthlete) {
+        List<String> classes = new ArrayList<>(selectedAthlete.getClasses().keySet());
+        absencesView.updateClassDropDown(classes);
+    }
+        public void changeTeamAbsencesLimit(Team sport, int absences){
+        Team team; // Implement this method to fetch the appropriate team
+        team = sport;
+        if (team != null) {
+            team.setAbsencesLimit(absences);
         }
     }
+    public void insertAbsence(Athlete athlete, String date, String classMissed){}
+    public void removeAbsence(Athlete athlete, String date, String classMissed){}
+    public void checkAbsences(Team sport, Athlete athlete){}
+    public void createReport(Team sport, Athlete athlete){}
 }

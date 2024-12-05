@@ -4,15 +4,13 @@ import java.util.List;
 
 public class Team implements Component {
     private String teamName;
-    private List<Component> members; // List to hold TeamComponent objects
-    private int teamAbsencesLimit;
+    public static List<Component> members; // List to hold TeamComponent objects
+    private int absencesLimit;
 
     public Team(String teamName, int teamAbsencesLimit) {
         this.teamName = teamName;
         this.members = new ArrayList<>();
-        this.teamAbsencesLimit = teamAbsencesLimit;
     }
-
 
     // Method to add a member (Athlete or another Team)
     public void addMember(Component member) {
@@ -24,10 +22,14 @@ public class Team implements Component {
         members.remove(member);
     }
 
-    public void setTeamAbsencesLimit(int limitOfAbsences) {
-        this.teamAbsencesLimit = 3;
-        for (Component Athlete : members){
-            Athlete.setAbsencesLimit(teamAbsencesLimit);
+    public List<Component> getMembers() {
+        return members;
+    }
+
+    public void setAbsencesLimit(int absencesLimit) {
+        this.absencesLimit = absencesLimit;
+        for (Component member : members){
+            Component.setAbsencesLimit(absencesLimit);
         }
     }
     @Override
