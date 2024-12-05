@@ -2,7 +2,7 @@ package Model;
 
 import java.util.Map;
 
-public class Athlete implements InterfaceAthlete, Component{
+public class Athlete implements Component{
     private String name;
     private String dob;
     private String email;

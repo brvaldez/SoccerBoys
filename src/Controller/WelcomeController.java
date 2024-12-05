@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Team;
 import View.RegisterAthleteView;
 import View.WelcomeView;
 import View.CreateTeamView;
@@ -7,12 +8,15 @@ import View.AbsencesView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WelcomeController implements ActionListener {
     private WelcomeView welcomeView;
-
-    public WelcomeController(WelcomeView welcomeView) {
+    private List<Team> teams;
+    public WelcomeController(WelcomeView welcomeView, List<Team> teams) {
         this.welcomeView = welcomeView;
+        this.teams = teams;
     }
 
     @Override
@@ -27,7 +31,10 @@ public class WelcomeController implements ActionListener {
             welcomeView.setVisible(false);
         }
         else if (e.getSource() == welcomeView.absencesButton){
-            new AbsencesView(welcomeView);
+            if (teams == null) {
+                teams = new ArrayList<>();
+                new AbsencesView(welcomeView, teams);
+            }
             welcomeView.setVisible(false);
         }
     }
