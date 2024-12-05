@@ -16,21 +16,27 @@ public class CreateTeamView extends JFrame{
     public JButton addTeamButton, changeCoachButton, removeTeamButton, returnButton;
     public JComboBox<Team> sportDropdown, removeSportDropdown;
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
-    private ArrayList<Coach> coaches;
-    public CreateTeamView(WelcomeView welcomeView) {
+    private List<Coach> coaches;
+    public CreateTeamView(WelcomeView welcomeView, List<Coach> coaches) {
         super("Manage Teams");
+        this.coaches = coaches;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(650, 550);
 
 
-        coaches.add(new Coach("Bruno Valdez"));
-        coaches.add(new Coach("Manuel Rodriguez"));
-        coaches.add(new Coach("Tania Roy"));
+        if (coaches.isEmpty()) {
+            coaches.add(new Coach("Bruno Valdez"));
+            coaches.add(new Coach("Manuel Rodriguez"));
+            coaches.add(new Coach("Tania Roy"));
+        }
 
         add(CreateTeamComponents());
 
         CreateTeamController controller = new CreateTeamController(this, welcomeView);
 
+        for (Coach coach : coaches) {
+            coachDropDown.addItem(coach);
+        }
         // Add action listeners for clear and submit
         addTeamButton.addActionListener(controller);
         changeCoachButton.addActionListener(controller);
@@ -38,6 +44,7 @@ public class CreateTeamView extends JFrame{
         returnButton.addActionListener(controller);
         setVisible(true);
     }
+
     public JPanel CreateTeamComponents(){
         JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(20, 20, 20,20));
@@ -121,17 +128,16 @@ public class CreateTeamView extends JFrame{
 
         return panel;
     }
-    public void updateNewCoachDropDown(Team selectedTeam, List<Coach> allCoaches) {
+    public void updateNewCoachDropDown(Team selectedTeam, List<Coach> coaches) {
         // Criação de uma lista temporária para armazenar os coaches, excluindo o coach atual
         List<Coach> filteredCoaches = new ArrayList<>();
 
         // Adicionando todos os coaches que não são o coach atual
-        for (Coach coach : allCoaches) {
+        for (Coach coach : coaches) {
             if (!coach.equals(selectedTeam.getCoach())) {
                 filteredCoaches.add(coach);
             }
         }
-
         // Atualizando o JComboBox com os coaches filtrados
         newCoachDropDown.removeAllItems();
         for (Coach coach : filteredCoaches) {

@@ -31,7 +31,6 @@ public class RegisterAthleteController implements ActionListener {
             String dob = registerAthleteView.dobField.getText().trim();
             String email = registerAthleteView.emailField.getText().trim();
             String id = registerAthleteView.idField.getText().trim();
-            Team sport = (Team)registerAthleteView.sportDropDown.getSelectedItem();
             String class1 = registerAthleteView.class1Field.getText().trim();
             String class2 = registerAthleteView.class2Field.getText().trim();
             String class3 = registerAthleteView.class3Field.getText().trim();

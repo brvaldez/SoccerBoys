@@ -8,8 +8,6 @@ import Model.Team;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class AbsencesView extends JFrame {
     private JLabel manageTeamLabel, sportLabel, limitAbsencesLabel, athletesAbsencesLabel, athleteLabel, classLabel, generalInfoLabel, athleteReportLabel;
@@ -20,13 +18,13 @@ public class AbsencesView extends JFrame {
     public JComboBox<Component> athleteDropDown2;
     public JComboBox<String> classDropDown;
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
-    private List<Team> teams;
+    private List<Team> members;
     private List<Athlete> athletes;
 
 
-    public AbsencesView(WelcomeView welcomeView, List<Team> teams) {
+    public AbsencesView(WelcomeView welcomeView, List<Team> members) {
         super("Absence Management");
-        this.teams = teams;
+        this.members = members;
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -43,7 +41,7 @@ public class AbsencesView extends JFrame {
         returnButton.addActionListener(controller);
 
         // Disable absence controls if no teams are available
-        if (teams.isEmpty()) {
+        if (members.isEmpty()) {
             disableAbsenceControls();
         }
         /*else {
@@ -69,7 +67,7 @@ public class AbsencesView extends JFrame {
         panel.add(sportLabel);
 
         // Sport DropDown
-        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(teams.toArray(new Team[0])));
+        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(members.toArray(new Team[0])));
         sportDropDown.setBounds(50, 70, 150, 25);
         panel.add(sportDropDown);
 

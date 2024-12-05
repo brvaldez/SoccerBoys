@@ -1,6 +1,7 @@
 package View;
 
 import Controller.RegisterAthleteController;
+import Model.Component;
 import Model.Team;
 
 import javax.swing.*;
@@ -12,12 +13,12 @@ public class RegisterAthleteView extends JFrame {
     public JTextField firstNameField, lastNameField, dobField, idField, emailField, class1Field, class2Field, class3Field;
     public JButton registerButton, clearButton, returnButton;
     public JComboBox<Team> sportDropDown;
-    private List<Team> teams;
+    private List<Team> members;
 
     // Create the frame
-    public RegisterAthleteView(WelcomeView welcomeView, List<Team> teams) {
+    public RegisterAthleteView(WelcomeView welcomeView, List<Team> members) {
         super("Register Student Athlete");
-        this.teams = teams;
+        this.members = members;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
 
@@ -87,7 +88,7 @@ public class RegisterAthleteView extends JFrame {
         sportLabel.setBounds(20, 170, 50, 20);
         panel.add(sportLabel);
 
-        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(teams.toArray(new Team[0])));
+        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(members.toArray(new Team[0])));
         sportDropDown.setBounds(70, 170, 120, 20);
         panel.add(sportDropDown);
 

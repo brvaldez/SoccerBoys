@@ -22,22 +22,32 @@ public class CreateTeamController implements ActionListener {
             Coach coach = (Coach)createTeamView.coachDropDown.getSelectedItem();
             int absences = Integer.parseInt(createTeamView.absencesField.getText().trim());
             Team team = new Team(sport, coach, absences);
+            addTeam(team);
+            System.out.println("Sport: " + sport);
+            System.out.println("Coach: " + coach.getName());
+            System.out.println("Absences: " + absences);
         }
         else if (e.getSource() == createTeamView.changeCoachButton){
-            Team sport = (Team)createTeamView.sportDropdown.getSelectedItem();
+            Team team = (Team)createTeamView.sportDropdown.getSelectedItem();
             Coach newcoach = (Coach)createTeamView.newCoachDropDown.getSelectedItem();
-            changeCoach(sport, newcoach);
+            changeCoach(team, newcoach);
         }
         else if (e.getSource() == createTeamView.removeTeamButton){
             Team sport = (Team)createTeamView.removeSportDropdown.getSelectedItem();
-            //removeTeam(sport);
+            removeTeam(sport);
         }
         else if(e.getSource() == createTeamView.returnButton){
             createTeamView.setVisible(false);
             welcomeView.setVisible(true);
         }
     }
-    public void changeCoach(sport, newcoach){
-
+    public void addTeam(Team team){
+        Team.addMember(team);
+    }
+    public void changeCoach(Team sport, Coach newcoach){
+        sport.setCoach(newcoach);
+    }
+    public void removeTeam(Team team){
+        Team.removeMember(team);
     }
 }

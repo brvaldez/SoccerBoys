@@ -8,19 +8,20 @@ public class Team implements Component {
     private int absencesLimit;
     private Coach coach;
 
-    public Team(String teamName, Coach coach, int absences) {
+    public Team(String teamName, Coach coach, int absencesLimit) {
         this.teamName = teamName;
         this.members = new ArrayList<>();
         this.coach = coach;
+        this.absencesLimit = absencesLimit;
     }
 
     // Method to add a member (Athlete or another Team)
-    public void addMember(Component member) {
+    public static void addMember(Component member) {
         members.add(member);
     }
 
     // Method to remove a member
-    public void removeMember(Component member) {
+    public static void removeMember(Component member) {
         members.remove(member);
     }
 

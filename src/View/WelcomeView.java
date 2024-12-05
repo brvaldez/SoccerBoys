@@ -1,22 +1,25 @@
 package View;
 
 import Controller.WelcomeController;
+import Model.Coach;
 import Model.Team;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeView extends JFrame {
 
     // Create buttons for create a team, register an athlete, absences
     public JButton createTeamButton, registerAthleteButton, absencesButton;
-    private List<Team> teams;
     public WelcomeView(){
         super("Welcome Coach!!!");
 
+        List<Team> teams = new ArrayList<>();
+        List<Coach> coaches = new ArrayList<>();
         // Listeners
-        WelcomeController controller = new WelcomeController(this, teams);
+        WelcomeController controller = new WelcomeController(this, teams, coaches);
 
         // Window features
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
