@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Coach;
 import Model.Team;
 import View.CreateTeamView;
 import View.WelcomeView;
@@ -18,22 +19,25 @@ public class CreateTeamController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == createTeamView.addTeamButton) {
             String sport = createTeamView.sportField.getText().trim();
-            String coach = createTeamView.coachField.getText().trim();
+            Coach coach = (Coach)createTeamView.coachDropDown.getSelectedItem();
             int absences = Integer.parseInt(createTeamView.absencesField.getText().trim());
-            Team team = new Team(sport, absences);
+            Team team = new Team(sport, coach, absences);
         }
         else if (e.getSource() == createTeamView.changeCoachButton){
-            String sport = createTeamView.sportDropdown.getSelectedItem().toString();
-            String newcoach = createTeamView.newCoachField.getText().trim();
-            //changeCoach(sport, newcoach);
+            Team sport = (Team)createTeamView.sportDropdown.getSelectedItem();
+            Coach newcoach = (Coach)createTeamView.newCoachDropDown.getSelectedItem();
+            changeCoach(sport, newcoach);
         }
         else if (e.getSource() == createTeamView.removeTeamButton){
-            String sport = createTeamView.removeSportDropdown.getSelectedItem().toString();
+            Team sport = (Team)createTeamView.removeSportDropdown.getSelectedItem();
             //removeTeam(sport);
         }
         else if(e.getSource() == createTeamView.returnButton){
             createTeamView.setVisible(false);
             welcomeView.setVisible(true);
         }
+    }
+    public void changeCoach(sport, newcoach){
+
     }
 }

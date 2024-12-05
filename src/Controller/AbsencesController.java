@@ -36,15 +36,13 @@ public class AbsencesController implements ActionListener {
         }
         else if (e.getSource() == absencesView.insertAbsenceButton) {
             Athlete athlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
-            String date = absencesView.dateField.getText();
             String classMissed = absencesView.classDropDown.getSelectedItem().toString();
-            insertAbsence(athlete, date, classMissed);
+            insertAbsence(athlete, classMissed);
         }
         else if (e.getSource() == absencesView.removeAbsenceButton) {
             Athlete athlete = (Athlete)absencesView.athleteDropDown.getSelectedItem();
-            String date = absencesView.dateField.getText();
             String classMissed = absencesView.classDropDown.getSelectedItem().toString();
-            removeAbsence(athlete, date,classMissed);
+            removeAbsence(athlete,classMissed);
         }
         else if (e.getSource() == absencesView.checkAbsencesButton) {
             Team sport = (Team)absencesView.sportDropDown.getSelectedItem();
@@ -72,19 +70,19 @@ public class AbsencesController implements ActionListener {
         List<String> classes = new ArrayList<>(selectedAthlete.getClasses().keySet());
         absencesView.updateClassDropDown(classes);
     }
-        public void changeTeamAbsencesLimit(Team sport, int absences){
+    public void changeTeamAbsencesLimit(Team sport, int absences){
         Team team; // Implement this method to fetch the appropriate team
         team = sport;
         if (team != null) {
             team.setAbsencesLimit(absences);
         }
     }
-    public void insertAbsence(Athlete athlete, String date, String classMissed){
+    public void insertAbsence(Athlete athlete, String classMissed){
         Map<String, Integer> classes = athlete.getClasses(); // Assuming getClasses() returns the HashMap
         int currentAbsences = classes.getOrDefault(classMissed, 0);
         classes.put(classMissed, currentAbsences + 1);
     }
-    public void removeAbsence(Athlete athlete, String date, String classMissed){}
+    public void removeAbsence(Athlete athlete, String classMissed){}
     public void checkAbsences(Team sport, Athlete athlete){}
     public void createReport(Team sport, Athlete athlete){}
 }

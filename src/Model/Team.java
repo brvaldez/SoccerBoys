@@ -6,10 +6,12 @@ public class Team implements Component {
     private String teamName;
     public static List<Component> members; // List to hold TeamComponent objects
     private int absencesLimit;
+    private Coach coach;
 
-    public Team(String teamName, int teamAbsencesLimit) {
+    public Team(String teamName, Coach coach, int absences) {
         this.teamName = teamName;
         this.members = new ArrayList<>();
+        this.coach = coach;
     }
 
     // Method to add a member (Athlete or another Team)
@@ -38,5 +40,13 @@ public class Team implements Component {
         for (Component member : members) {
             member.displayDetails();
         }
+    }
+
+    public Coach getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
     }
 }

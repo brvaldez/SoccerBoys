@@ -18,7 +18,6 @@ public class WelcomeController implements ActionListener {
         this.welcomeView = welcomeView;
         this.teams = teams;
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // If the submit button is clicked
@@ -33,8 +32,8 @@ public class WelcomeController implements ActionListener {
         else if (e.getSource() == welcomeView.absencesButton){
             if (teams == null) {
                 teams = new ArrayList<>();
-                new AbsencesView(welcomeView, teams);
             }
+            new AbsencesView(welcomeView, teams);
             welcomeView.setVisible(false);
         }
     }

@@ -1,20 +1,31 @@
 package View;
 
 import Controller.CreateTeamController;
+import Model.Coach;
+import Model.Team;
 
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateTeamView extends JFrame{
     private JLabel sportLabel, coachLabel, absencesLabel, sportChangeLabel, newCoachLabel, removeSportLabel;
-    public JTextField sportField, coachField, absencesField, newCoachField;
+    public JTextField sportField, absencesField;
     public JButton addTeamButton, changeCoachButton, removeTeamButton, returnButton;
-    public JComboBox<String> sportDropdown, removeSportDropdown;
+    public JComboBox<Team> sportDropdown, removeSportDropdown;
+    public JComboBox<Coach> coachDropDown, newCoachDropDown;
+    private ArrayList<Coach> coaches;
     public CreateTeamView(WelcomeView welcomeView) {
         super("Manage Teams");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(650, 550);
+
+
+        coaches.add(new Coach("Bruno Valdez"));
+        coaches.add(new Coach("Manuel Rodriguez"));
+        coaches.add(new Coach("Tania Roy"));
 
         add(CreateTeamComponents());
 
@@ -47,9 +58,9 @@ public class CreateTeamView extends JFrame{
         panel.add(sportLabel);
 
         // Coach Field with Label
-        coachField = new JTextField();
-        coachField.setBounds(250, 70, 120, 20);
-        panel.add(coachField);
+        coachDropDown = new JComboBox<>();
+        coachDropDown.setBounds(250, 70, 120, 20);
+        panel.add(coachDropDown);
 
         coachLabel = new JLabel("Coach");
         coachLabel.setBounds(250, 95, 120, 20);
@@ -70,7 +81,7 @@ public class CreateTeamView extends JFrame{
         panel.add(addTeamButton);
 
         // Change Coach Section
-        sportDropdown = new JComboBox<>(new String[]{"Sport A", "Sport B", "Sport C"});
+        sportDropdown = new JComboBox<>();
         sportDropdown.setBounds(50, 200, 120, 20);
         panel.add(sportDropdown);
 
@@ -78,9 +89,9 @@ public class CreateTeamView extends JFrame{
         sportChangeLabel.setBounds(50, 225, 120, 20);
         panel.add(sportChangeLabel);
 
-        newCoachField = new JTextField();
-        newCoachField.setBounds(250, 200, 120, 20);
-        panel.add(newCoachField);
+        newCoachDropDown = new JComboBox<>();
+        newCoachDropDown.setBounds(250, 200, 120, 20);
+        panel.add(newCoachDropDown);
 
         newCoachLabel = new JLabel("New Coach");
         newCoachLabel.setBounds(250, 225, 120, 20);
@@ -91,12 +102,12 @@ public class CreateTeamView extends JFrame{
         panel.add(changeCoachButton);
 
         // Remove Team Section
-        removeSportDropdown = new JComboBox<>(new String[]{"Sport A", "Sport B", "Sport C"});
-        removeSportDropdown.setBounds(50, 325, 120, 20);
+        removeSportDropdown = new JComboBox<>();
+        removeSportDropdown.setBounds(250, 325, 120, 20);
         panel.add(removeSportDropdown);
 
         removeSportLabel = new JLabel("Sport");
-        removeSportLabel.setBounds(50, 350, 120, 20);
+        removeSportLabel.setBounds(250, 350, 120, 20);
         panel.add(removeSportLabel);
 
         removeTeamButton = new JButton("Remove Team");
@@ -109,5 +120,22 @@ public class CreateTeamView extends JFrame{
         panel.add(returnButton);
 
         return panel;
+    }
+    public void updateNewCoachDropDown(Team selectedTeam, List<Coach> allCoaches) {
+        // Criação de uma lista temporária para armazenar os coaches, excluindo o coach atual
+        List<Coach> filteredCoaches = new ArrayList<>();
+
+        // Adicionando todos os coaches que não são o coach atual
+        for (Coach coach : allCoaches) {
+            if (!coach.equals(selectedTeam.getCoach())) {
+                filteredCoaches.add(coach);
+            }
+        }
+
+        // Atualizando o JComboBox com os coaches filtrados
+        newCoachDropDown.removeAllItems();
+        for (Coach coach : filteredCoaches) {
+            newCoachDropDown.addItem(coach);
+        }
     }
 }
