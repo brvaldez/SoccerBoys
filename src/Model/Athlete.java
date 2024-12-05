@@ -15,7 +15,7 @@ public class Athlete implements Component{
         this.email = email;
         this.id = id;
         this.classes = classes;
-        this.absencesLimit = 3;
+        this.absencesLimit = Team.absencesLimit;
     }
 
     public String getName() {
@@ -33,12 +33,7 @@ public class Athlete implements Component{
     public Map<String, Integer> getClasses() {
         return classes;
     }
-    public int getLimitOfAbsences(){
-        return absencesLimit;
-    }
-    public void setAbsencesLimit(int absencesLimit){
-        this.absencesLimit = absencesLimit;
-    }
+
     public void displayDetails(){
         System.out.println("Student: " + getName()+ "Absences: " + getClasses());
     }

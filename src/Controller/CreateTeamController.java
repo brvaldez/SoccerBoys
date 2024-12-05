@@ -61,6 +61,7 @@ public class CreateTeamController implements ActionListener {
     }
     public void removeTeam(Team team){
         team.removeMember(team);
+        createTeamView.updateTeamsDropDown();
     }
     //public void updateNewCoachDropDown(Team selectedTeam){}
 }

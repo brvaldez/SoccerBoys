@@ -4,13 +4,12 @@ import java.util.List;
 
 public class Team implements Component {
     private String teamName;
-    public static List<Component> members; // List to hold TeamComponent objects
-    private int absencesLimit;
+    public static List<Component> members = new ArrayList<>(); // List to hold TeamComponent objects
+    public static int absencesLimit;
     private Coach coach;
 
     public Team(String teamName, Coach coach, int absencesLimit) {
         this.teamName = teamName;
-        this.members = new ArrayList<>();
         this.coach = coach;
         this.absencesLimit = absencesLimit;
     }
@@ -29,10 +28,10 @@ public class Team implements Component {
         return members;
     }
 
-    public void setAbsencesLimit(int absencesLimit) {
-        this.absencesLimit = absencesLimit;
+    public static void setAbsencesLimit(int absencesLimit) {
+        Team.absencesLimit = absencesLimit;
         for (Component member : members){
-            Component.setAbsencesLimit(absencesLimit);
+            Team.setAbsencesLimit(absencesLimit);
         }
     }
     @Override
@@ -42,7 +41,6 @@ public class Team implements Component {
             member.displayDetails();
         }
     }
-
     public Coach getCoach() {
         return coach;
     }

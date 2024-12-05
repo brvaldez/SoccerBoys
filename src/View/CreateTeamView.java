@@ -18,7 +18,6 @@ public class CreateTeamView extends JFrame{
     public JComboBox<Team> sportDropdown, sportDropdown2, removeSportDropdown;
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
     private List<Coach> coaches;
-    public static List<Component> members;
     public CreateTeamView(WelcomeView welcomeView, List<Coach> coaches) {
         super("Manage Teams");
         this.coaches = coaches;
@@ -136,7 +135,6 @@ public class CreateTeamView extends JFrame{
         }
         repaint();
         revalidate();
-
     }
     public void updateNewCoachDropDown(Team selectedTeam) {
         newCoachDropDown.removeAllItems();
