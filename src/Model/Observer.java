@@ -1,5 +1,5 @@
 package Model;
 
 public interface Observer {
-    void update(String event);
+    void update(String playerName, int absences, int maxAbsences);
 }

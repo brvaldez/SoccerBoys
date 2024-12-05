@@ -1,5 +1,7 @@
 package Model;
 
+import javax.swing.*;
+
 public class Coach implements Observer{
     private String name;
 
@@ -10,8 +12,10 @@ public class Coach implements Observer{
         return name;
     }
     @Override
-    public void update(String event) {
-        System.out.println(name + ", new deal available " + event);
+    public void update(String playerName, int absences, int maxAbsences) {
+        String message = playerName + " has reached " + absences + " absences, exceeding the limit of " + maxAbsences + "!";
+        // Display pop-up notification
+        JOptionPane.showMessageDialog(null, message, "Absence Alert", JOptionPane.WARNING_MESSAGE);
     }
     @Override
     public String toString() {

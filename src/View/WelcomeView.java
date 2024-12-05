@@ -6,14 +6,15 @@ import Model.Team;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeView extends JFrame {
 
-    // Create buttons for create a team, register an athlete, absences
     public JButton createTeamButton, registerAthleteButton, absencesButton;
-    public WelcomeView(){
+
+    public WelcomeView() {
         super("Welcome Coach!!!");
 
         List<Team> teams = new ArrayList<>();
@@ -22,39 +23,53 @@ public class WelcomeView extends JFrame {
         coaches.add(new Coach("Bruno Valdez"));
         coaches.add(new Coach("Manuel Rodriguez"));
         coaches.add(new Coach("Tania Roy"));
+
         // Listeners
         WelcomeController controller = new WelcomeController(this, teams, coaches);
 
         // Window features
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 150);
+        setSize(800, 300);
+        setLocationRelativeTo(null); // Center the window on the screen
 
-        // Add form panel to the window
+        // Add components to the window
         add(WelcomeComponents());
 
-        // Add action listeners for clear and submit
+        // Add action listeners for the buttons
         createTeamButton.addActionListener(controller);
         registerAthleteButton.addActionListener(controller);
         absencesButton.addActionListener(controller);
 
         setVisible(true);
     }
-    public JPanel WelcomeComponents(){
+
+    public JPanel WelcomeComponents() {
         JPanel panel = new JPanel();
-        panel.setBorder(new EmptyBorder(20, 20, 20,20));
-        panel.setLayout(null);
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panel.setLayout(new BorderLayout(20, 20));
+
+        // Title
+        JLabel titleLabel = new JLabel("Welcome to the Coach Management System!", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        panel.add(titleLabel, BorderLayout.NORTH);
+
+        // Buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 3, 20, 20));
 
         createTeamButton = new JButton("Create Team");
-        createTeamButton.setBounds(20, 30, 150, 75);
-        panel.add(createTeamButton);
+        createTeamButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        buttonPanel.add(createTeamButton);
 
         registerAthleteButton = new JButton("Register Athlete");
-        registerAthleteButton.setBounds(200, 30, 150, 75);
-        panel.add(registerAthleteButton);
+        registerAthleteButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        buttonPanel.add(registerAthleteButton);
 
         absencesButton = new JButton("Absences");
-        absencesButton.setBounds(380, 30, 150,75);
-        panel.add(absencesButton);
+        absencesButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        buttonPanel.add(absencesButton);
+
+        panel.add(buttonPanel, BorderLayout.CENTER);
 
         return panel;
     }

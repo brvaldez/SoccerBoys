@@ -7,28 +7,30 @@ import Model.Team;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.List;
 
 public class AbsencesView extends JFrame {
     private JLabel manageTeamLabel, sportLabel, limitAbsencesLabel, athletesAbsencesLabel, athleteLabel, classLabel, generalInfoLabel, athleteReportLabel;
     public JTextField limitAbsencesField;
-    public JSeparator separator1, separator2;
     public JComboBox<Team> sportDropDown;
     public JComboBox<Component> athleteDropDown;
     public JComboBox<Component> athleteDropDown2;
     public JComboBox<String> classDropDown;
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
     private List<Team> members;
-    private List<Athlete> athletes;
-
 
     public AbsencesView(WelcomeView welcomeView, List<Team> members) {
         super("Absence Management");
         this.members = members;
+
+        // Window setup
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Center window on screen
 
-        add(AbsencesComponents());
+        // Add components to the frame
+        add(AbsencesComponents(), BorderLayout.CENTER);
 
         AbsencesController controller = new AbsencesController(this, welcomeView);
 
@@ -40,143 +42,151 @@ public class AbsencesView extends JFrame {
         reportButton.addActionListener(controller);
         returnButton.addActionListener(controller);
 
-        // Disable absence controls if no teams are available
+        // Disable controls if no teams are available
         if (members.isEmpty()) {
             disableAbsenceControls();
         }
-        /*else {
-            sportDropDown.setEnabled(true); // Enable dropdown if there are teams
-        }*/
 
         setVisible(true);
     }
 
     // Components for the Absences View
     public JPanel AbsencesComponents() {
-        JPanel panel = new JPanel();
-        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        panel.setLayout(null);
+        JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        // Title Label
+        JLabel titleLabel = new JLabel("Absence Management", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+
+        // Central components panel
+        JPanel componentsPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Section 1: Manage Team Absences
-        manageTeamLabel = new JLabel("Manage Team Absences");
-        manageTeamLabel.setBounds(50, 20, 200, 20);
-        panel.add(manageTeamLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        componentsPanel.add(new JLabel("Manage Team Absences"), gbc);
 
-        sportLabel = new JLabel("Sport");
-        sportLabel.setBounds(50, 50, 100, 20);
-        panel.add(sportLabel);
-
-        // Sport DropDown
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        componentsPanel.add(new JLabel("Sport:"), gbc);
         sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(members.toArray(new Team[0])));
-        sportDropDown.setBounds(50, 70, 150, 25);
-        panel.add(sportDropDown);
+        gbc.gridx = 1;
+        componentsPanel.add(sportDropDown, gbc);
 
-        limitAbsencesLabel = new JLabel("Limit of Absences");
-        limitAbsencesLabel.setBounds(250, 50, 150, 20);
-        panel.add(limitAbsencesLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        componentsPanel.add(new JLabel("Limit of Absences:"), gbc);
+        limitAbsencesField = new JTextField(15);
+        gbc.gridx = 1;
+        componentsPanel.add(limitAbsencesField, gbc);
 
-        limitAbsencesField = new JTextField();
-        limitAbsencesField.setBounds(250, 70, 150, 25);
-        panel.add(limitAbsencesField);
-
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         changeLimitButton = new JButton("Change Limit");
-        changeLimitButton.setBounds(450, 70, 150, 30);
-        panel.add(changeLimitButton);
-
-        separator1 = new JSeparator();
-        separator1.setBounds(50, 110, 700, 10);
-        panel.add(separator1);
+        componentsPanel.add(changeLimitButton, gbc);
 
         // Section 2: Athletes Absences
-        athletesAbsencesLabel = new JLabel("Athletes Absences");
-        athletesAbsencesLabel.setBounds(50, 130, 200, 20);
-        panel.add(athletesAbsencesLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        componentsPanel.add(new JLabel("Athletes Absences"), gbc);
 
-        athleteLabel = new JLabel("Athlete");
-        athleteLabel.setBounds(50, 160, 100, 20);
-        panel.add(athleteLabel);
-
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 1;
+        componentsPanel.add(new JLabel("Athlete:"), gbc);
         athleteDropDown = new JComboBox<>();
-        athleteDropDown.setBounds(50, 180, 150, 25);
-        panel.add(athleteDropDown);
+        gbc.gridx = 1;
+        componentsPanel.add(athleteDropDown, gbc);
 
-        classLabel = new JLabel("Class");
-        classLabel.setBounds(250, 160, 100, 20);
-        panel.add(classLabel);
-
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        componentsPanel.add(new JLabel("Class:"), gbc);
         classDropDown = new JComboBox<>();
-        classDropDown.setBounds(250, 180, 150, 25);
-        panel.add(classDropDown);
+        gbc.gridx = 1;
+        componentsPanel.add(classDropDown, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 7;
         insertAbsenceButton = new JButton("Insert Absence");
-        insertAbsenceButton.setBounds(450, 180, 150, 30);
-        panel.add(insertAbsenceButton);
+        componentsPanel.add(insertAbsenceButton, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 8;
         removeAbsenceButton = new JButton("Remove Absence");
-        removeAbsenceButton.setBounds(625, 180, 150, 30);
-        panel.add(removeAbsenceButton);
-
-        separator2 = new JSeparator();
-        separator2.setBounds(50, 230, 700, 10);
-        panel.add(separator2);
+        componentsPanel.add(removeAbsenceButton, gbc);
 
         // Section 3: General Information
-        generalInfoLabel = new JLabel("General Information");
-        generalInfoLabel.setBounds(50, 250, 200, 20);
-        panel.add(generalInfoLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.gridwidth = 2;
+        componentsPanel.add(new JLabel("General Information"), gbc);
 
-        athleteReportLabel = new JLabel("Athlete");
-        athleteReportLabel.setBounds(50, 280, 100, 20);
-        panel.add(athleteReportLabel);
-
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.gridwidth = 1;
+        componentsPanel.add(new JLabel("Athlete:"), gbc);
         athleteDropDown2 = new JComboBox<>();
-        athleteDropDown2.setBounds(50, 300, 150, 25);
-        panel.add(athleteDropDown2);
+        gbc.gridx = 1;
+        componentsPanel.add(athleteDropDown2, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 11;
         checkAbsencesButton = new JButton("Check Absences");
-        checkAbsencesButton.setBounds(250, 300, 150, 30);
-        panel.add(checkAbsencesButton);
+        componentsPanel.add(checkAbsencesButton, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 12;
         reportButton = new JButton("Generate Report");
-        reportButton.setBounds(450, 300, 150, 30);
-        panel.add(reportButton);
+        componentsPanel.add(reportButton, gbc);
 
         // Return Button
-        returnButton = new JButton("Menu");
-        returnButton.setBounds(625, 350, 150, 30);
-        panel.add(returnButton);
+        gbc.gridx = 1;
+        gbc.gridy = 13;
+        returnButton = new JButton("Return to Menu");
+        componentsPanel.add(returnButton, gbc);
 
-        return panel;
+        mainPanel.add(componentsPanel, BorderLayout.CENTER);
+
+        return mainPanel;
     }
-        // Update Athlete list based on the selected team
-        public void updateAthletesList (List < Component > athletes) {
-            athleteDropDown.removeAllItems();
-            for (Component athlete : athletes) {
-                athleteDropDown.addItem(athlete);
-            }
-        }
 
-        // Update class list for the selected athlete
-        public void updateClassDropDown (List < String > classes) {
-            classDropDown.removeAllItems();
-            for (String className : classes) {
-                classDropDown.addItem(className);
-            }
+    // Update Athlete list based on the selected team
+    public void updateAthletesList(List<Component> athletes) {
+        athleteDropDown.removeAllItems();
+        for (Component athlete : athletes) {
+            athleteDropDown.addItem(athlete);
         }
+    }
 
-        // Disable controls if there are no teams available
-        private void disableAbsenceControls () {
-            sportDropDown.setEnabled(false);
-            athleteDropDown.setEnabled(false);
-            limitAbsencesField.setEnabled(false);
-            classDropDown.setEnabled(false);
-            changeLimitButton.setEnabled(false);
-            insertAbsenceButton.setEnabled(false);
-            removeAbsenceButton.setEnabled(false);
-            athleteDropDown2.setEnabled(false);
-            checkAbsencesButton.setEnabled(false);
-            reportButton.setEnabled(false);
+    // Update class list for the selected athlete
+    public void updateClassDropDown(List<String> classes) {
+        classDropDown.removeAllItems();
+        for (String className : classes) {
+            classDropDown.addItem(className);
         }
+    }
+
+    // Disable controls if there are no teams available
+    private void disableAbsenceControls() {
+        sportDropDown.setEnabled(false);
+        athleteDropDown.setEnabled(false);
+        limitAbsencesField.setEnabled(false);
+        classDropDown.setEnabled(false);
+        changeLimitButton.setEnabled(false);
+        insertAbsenceButton.setEnabled(false);
+        removeAbsenceButton.setEnabled(false);
+        athleteDropDown2.setEnabled(false);
+        checkAbsencesButton.setEnabled(false);
+        reportButton.setEnabled(false);
+    }
 
     // Enable absence controls when a team is created
     public void enableAbsenceControls() {

@@ -6,6 +6,7 @@ import Model.Team;
 import View.CreateTeamView;
 import View.WelcomeView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -24,7 +25,16 @@ public class CreateTeamController implements ActionListener {
         if (e.getSource() == createTeamView.addTeamButton) {
             String sport = createTeamView.sportField.getText().trim();
             Coach coach = (Coach)createTeamView.coachDropDown.getSelectedItem();
-            int absences = Integer.parseInt(createTeamView.absencesField.getText().trim());
+            String absencesText = createTeamView.absencesField.getText().trim();
+            // Validate if any required field is empty
+            if (sport.isEmpty() || coach == null || absencesText.isEmpty()) {
+                throw new IllegalArgumentException("All fields must be filled out!");
+            }
+            // Validate if absences is a valid number
+            int absences = Integer.parseInt(absencesText); // This might throw a NumberFormatException
+            if (absences < 0) {
+                throw new IllegalArgumentException("Absences must be a positive number!");
+            }
             Team team = new Team(sport, coach, absences);
             addTeam(team);
             System.out.println("Sport: " + sport);

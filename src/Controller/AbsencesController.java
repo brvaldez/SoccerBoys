@@ -5,6 +5,8 @@ import Model.Component;
 import View.AbsencesView;
 import View.WelcomeView;
 import Model.Team;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -31,12 +33,25 @@ public class AbsencesController implements ActionListener {
         }
         else if (e.getSource() == absencesView.changeLimitButton) {
             Team sport = (Team) absencesView.sportDropDown.getSelectedItem();
-            int absences =  Integer.parseInt(absencesView.limitAbsencesField.getText().trim());
+            String absencesText = absencesView.limitAbsencesField.getText().trim();
+            if (sport == null || absencesText.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please select a sport and enter a limit!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            int absences;
+            try {
+                absences = Integer.parseInt(absencesText);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Absence limit must be a valid number!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             changeTeamAbsencesLimit(sport, absences);
         }
         else if (e.getSource() == absencesView.insertAbsenceButton) {
             Athlete athlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
             String classMissed = absencesView.classDropDown.getSelectedItem().toString();
+            if (athlete == null || classMissed.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please select an athlete and a class!", "Error", JOptionPane.ERROR_MESSAGE);}
             insertAbsence(athlete, classMissed);
         }
         else if (e.getSource() == absencesView.removeAbsenceButton) {

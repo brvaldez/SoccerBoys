@@ -35,6 +35,10 @@ public class RegisterAthleteController implements ActionListener {
             String class2 = registerAthleteView.class2Field.getText().trim();
             String class3 = registerAthleteView.class3Field.getText().trim();
 
+            if (firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || email.isEmpty() || id.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             String name = firstName + lastName;
 
             // Create a map to store classes and their absences
