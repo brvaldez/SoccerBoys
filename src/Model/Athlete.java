@@ -7,15 +7,13 @@ public class Athlete implements Component{
     private String dob;
     private String email;
     private String id;
-    private String sport;
     private Map<String, Integer> classes;
     private int absencesLimit;
-    public Athlete(String name, String dob, String email, String id, String sport, Map<String, Integer> classes) {
+    public Athlete(String name, String dob, String email, String id, Map<String, Integer> classes) {
         this.name = name;
         this.dob = dob;
         this.email = email;
         this.id = id;
-        this.sport = sport;
         this.classes = classes;
         this.absencesLimit = 3;
     }
@@ -32,9 +30,6 @@ public class Athlete implements Component{
     public String getId() {
         return id;
     }
-    public String getSport() {
-        return sport;
-    }
     public Map<String, Integer> getClasses() {
         return classes;
     }
@@ -45,6 +40,6 @@ public class Athlete implements Component{
         this.absencesLimit = absencesLimit;
     }
     public void displayDetails(){
-        System.out.println("Student: " + getName()+ ", Sport: " +getSport() + "Absences: " + getClasses());
+        System.out.println("Student: " + getName()+ "Absences: " + getClasses());
     }
 }

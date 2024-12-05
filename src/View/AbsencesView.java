@@ -17,6 +17,7 @@ public class AbsencesView extends JFrame {
     public JComboBox<Component> athleteDropDown;
     public JComboBox<Component> athleteDropDown2;
     public JComboBox<String> classDropDown;
+    public JComboBox<String> absenceDropDown;
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
     private List<Team> teams;
     private List<Athlete> athletes;
@@ -51,26 +52,26 @@ public class AbsencesView extends JFrame {
     }
 
     // Components for the Absences View
-    public JPanel AbsencesComponents(){
+    public JPanel AbsencesComponents() {
         JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
         panel.setLayout(null);
 
-        // Manage Team Absences Section
-        manageTeamLabel = new JLabel("Manage Team Absences");
+        // Section 1: Manage Team Absences
+        JLabel manageTeamLabel = new JLabel("Manage Team Absences");
         manageTeamLabel.setBounds(50, 20, 200, 20);
         panel.add(manageTeamLabel);
 
-        sportLabel = new JLabel("Sport");
+        JLabel sportLabel = new JLabel("Sport");
         sportLabel.setBounds(50, 50, 100, 20);
         panel.add(sportLabel);
 
-        // Create combo box for sport (teams)
+        // Sport DropDown
         sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(teams.toArray(new Team[0])));
         sportDropDown.setBounds(50, 70, 150, 25);
         panel.add(sportDropDown);
 
-        limitAbsencesLabel = new JLabel("Limit of Absences");
+        JLabel limitAbsencesLabel = new JLabel("Limit of Absences");
         limitAbsencesLabel.setBounds(250, 50, 150, 20);
         panel.add(limitAbsencesLabel);
 
@@ -82,67 +83,83 @@ public class AbsencesView extends JFrame {
         changeLimitButton.setBounds(450, 70, 150, 30);
         panel.add(changeLimitButton);
 
-        // Athletes Absences Section
-        athletesAbsencesLabel = new JLabel("Athletes Absences");
+        JSeparator separator1 = new JSeparator();
+        separator1.setBounds(50, 110, 800, 10);
+        panel.add(separator1);
+
+        // Section 2: Athletes Absences
+        JLabel athletesAbsencesLabel = new JLabel("Athletes Absences");
         athletesAbsencesLabel.setBounds(50, 120, 200, 20);
         panel.add(athletesAbsencesLabel);
 
-        athleteReportLabel = new JLabel("Athlete");
-        athleteReportLabel.setBounds(250, 150, 100, 20);
-        panel.add(athleteReportLabel);
+        JLabel athleteLabel = new JLabel("Athlete");
+        athleteLabel.setBounds(50, 150, 100, 20);
+        panel.add(athleteLabel);
 
         athleteDropDown = new JComboBox<>();
-        athleteDropDown.setBounds(250, 170, 150, 25);
+        athleteDropDown.setBounds(50, 170, 150, 25);
         panel.add(athleteDropDown);
 
-        dateLabel = new JLabel("Date (dd/mm/yyyy)");
-        dateLabel.setBounds(450, 150, 150, 20);
+        JLabel dateLabel = new JLabel("Date (dd/mm/yyyy)");
+        dateLabel.setBounds(250, 150, 150, 20);
         panel.add(dateLabel);
 
         dateField = new JTextField();
-        dateField.setBounds(450, 170, 150, 25);
+        dateField.setBounds(250, 170, 150, 25);
         panel.add(dateField);
 
-        classLabel = new JLabel("Class");
-        classLabel.setBounds(650, 150, 100, 20);
+        JLabel classLabel = new JLabel("Class");
+        classLabel.setBounds(450, 150, 100, 20);
         panel.add(classLabel);
 
         classDropDown = new JComboBox<>();
-        classDropDown.setBounds(650, 170, 150, 25);
+        classDropDown.setBounds(450, 170, 150, 25);
         panel.add(classDropDown);
 
         insertAbsenceButton = new JButton("Insert Absence");
-        insertAbsenceButton.setBounds(50, 210, 150, 30);
+        insertAbsenceButton.setBounds(650, 170, 150, 30);
         panel.add(insertAbsenceButton);
 
+        JLabel absenceLabel = new JLabel("Absences");
+        absenceLabel.setBounds(450, 210, 100, 20);
+        panel.add(absenceLabel);
+
+        absenceDropDown = new JComboBox<>();
+        absenceDropDown.setBounds(450, 230, 150, 25);
+        panel.add(absenceDropDown);
+
         removeAbsenceButton = new JButton("Remove Absence");
-        removeAbsenceButton.setBounds(250, 210, 150, 30);
+        removeAbsenceButton.setBounds(650, 230, 150, 30);
         panel.add(removeAbsenceButton);
 
-        // General Information Section
-        generalInfoLabel = new JLabel("General Information");
-        generalInfoLabel.setBounds(50, 260, 200, 20);
+        JSeparator separator2 = new JSeparator();
+        separator2.setBounds(50, 280, 800, 10);
+        panel.add(separator2);
+
+        // Section 3: General Information
+        JLabel generalInfoLabel = new JLabel("General Information");
+        generalInfoLabel.setBounds(50, 290, 200, 20);
         panel.add(generalInfoLabel);
 
-        athleteReportLabel = new JLabel("Athlete");
-        athleteReportLabel.setBounds(250, 290, 100, 20);
+        JLabel athleteReportLabel = new JLabel("Athlete");
+        athleteReportLabel.setBounds(50, 320, 100, 20);
         panel.add(athleteReportLabel);
 
         athleteDropDown2 = new JComboBox<>();
-        athleteDropDown2.setBounds(250, 310, 150, 25);
+        athleteDropDown2.setBounds(50, 340, 150, 25);
         panel.add(athleteDropDown2);
 
         checkAbsencesButton = new JButton("Check Absences");
-        checkAbsencesButton.setBounds(50, 350, 150, 30);
+        checkAbsencesButton.setBounds(250, 340, 150, 30);
         panel.add(checkAbsencesButton);
 
         reportButton = new JButton("Generate Report");
-        reportButton.setBounds(250, 350, 150, 30);
+        reportButton.setBounds(450, 340, 150, 30);
         panel.add(reportButton);
 
-        // Return button
+        // Return Button
         returnButton = new JButton("Menu");
-        returnButton.setBounds(600, 500, 50,20);
+        returnButton.setBounds(650, 400, 150, 30);
         panel.add(returnButton);
 
         return panel;
@@ -163,7 +180,7 @@ public class AbsencesView extends JFrame {
             classDropDown.addItem(className);
         }
     }
-
+    public void updateAbsenceDropDown
     // Disable controls if there are no teams available
     private void disableAbsenceControls() {
         sportDropDown.setEnabled(false);

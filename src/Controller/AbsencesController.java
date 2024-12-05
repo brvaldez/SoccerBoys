@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AbsencesController implements ActionListener {
     private AbsencesView absencesView;
@@ -78,7 +79,11 @@ public class AbsencesController implements ActionListener {
             team.setAbsencesLimit(absences);
         }
     }
-    public void insertAbsence(Athlete athlete, String date, String classMissed){}
+    public void insertAbsence(Athlete athlete, String date, String classMissed){
+        Map<String, Integer> classes = athlete.getClasses(); // Assuming getClasses() returns the HashMap
+        int currentAbsences = classes.getOrDefault(classMissed, 0);
+        classes.put(classMissed, currentAbsences + 1);
+    }
     public void removeAbsence(Athlete athlete, String date, String classMissed){}
     public void checkAbsences(Team sport, Athlete athlete){}
     public void createReport(Team sport, Athlete athlete){}

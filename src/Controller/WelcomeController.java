@@ -27,7 +27,7 @@ public class WelcomeController implements ActionListener {
             welcomeView.setVisible(false);  // Hide the welcome window
         }
         else if(e.getSource() == welcomeView.registerAthleteButton){
-            new RegisterAthleteView(welcomeView);
+            new RegisterAthleteView(welcomeView, teams);
             welcomeView.setVisible(false);
         }
         else if (e.getSource() == welcomeView.absencesButton){

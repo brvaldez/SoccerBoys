@@ -1,19 +1,23 @@
 package View;
 
 import Controller.RegisterAthleteController;
+import Model.Team;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.util.List;
 
 public class RegisterAthleteView extends JFrame {
     private JLabel nameLabel, firstNameLabel, lastNameLabel, dobLabel, idLabel, emailLabel, sportLabel, classesLabel;
     public JTextField firstNameField, lastNameField, dobField, idField, emailField, class1Field, class2Field, class3Field;
     public JButton registerButton, clearButton, returnButton;
-    public JComboBox<String> sportDropdown;
+    public JComboBox<Team> sportDropDown;
+    private List<Team> teams;
 
     // Create the frame
-    public RegisterAthleteView(WelcomeView welcomeView) {
+    public RegisterAthleteView(WelcomeView welcomeView, List<Team> teams) {
         super("Register Student Athlete");
+        this.teams = teams;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
 
@@ -82,10 +86,10 @@ public class RegisterAthleteView extends JFrame {
         sportLabel = new JLabel("Sport");
         sportLabel.setBounds(20, 170, 50, 20);
         panel.add(sportLabel);
-        String[] sports = {"Football", "Basketball", "Baseball", "Soccer", "Tennis"};
-        sportDropdown = new JComboBox<>(sports);
-        sportDropdown.setBounds(70, 170, 120, 20);
-        panel.add(sportDropdown);
+
+        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(teams.toArray(new Team[0])));
+        sportDropDown.setBounds(70, 170, 120, 20);
+        panel.add(sportDropDown);
 
         // Classes label and fields
         classesLabel = new JLabel("Classes");
