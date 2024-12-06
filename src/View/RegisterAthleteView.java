@@ -1,11 +1,11 @@
 package View;
 
 import Controller.RegisterAthleteController;
-import Model.Component;
 import Model.Team;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.List;
 
 public class RegisterAthleteView extends JFrame {
@@ -19,109 +19,119 @@ public class RegisterAthleteView extends JFrame {
     public RegisterAthleteView(WelcomeView welcomeView, List<Team> members) {
         super("Register Student Athlete");
         this.members = members;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 400);
 
-        add(RegisterAthleteComponents());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Add components to the frame
+        add(RegisterAthleteComponents(), BorderLayout.CENTER);
 
         RegisterAthleteController controller = new RegisterAthleteController(this, welcomeView);
 
-        // Add action listeners for clear and submit
+        // Add action listeners for buttons
         registerButton.addActionListener(controller);
         clearButton.addActionListener(controller);
         returnButton.addActionListener(controller);
 
+        // Pack to dynamically size the window
+        pack();
+        setMinimumSize(new Dimension(600, 400)); // Set a minimum size for usability
+        setLocationRelativeTo(null); // Ensure the window opens in the center of the screen
         setVisible(true);
     }
 
-    public JPanel RegisterAthleteComponents(){
-        JPanel panel = new JPanel();
-        panel.setBorder(new EmptyBorder(20, 20, 20,20));
-        panel.setLayout(null);
+    // Panel with components
+    public JPanel RegisterAthleteComponents() {
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        nameLabel = new JLabel("Student Athlete Name");
-        nameLabel.setBounds(20, 20, 200, 20);
-        panel.add(nameLabel);
+        // Title
+        JLabel titleLabel = new JLabel("Register Student Athlete", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // First name label and field
-        firstNameLabel = new JLabel("First");
-        firstNameLabel.setBounds(20, 50, 50, 20);
-        panel.add(firstNameLabel);
-        firstNameField = new JTextField();
-        firstNameField.setBounds(70, 50, 120, 20);
-        panel.add(firstNameField);
+        // Form panel using GridBagLayout
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Last name label and field
-        lastNameLabel = new JLabel("Last");
-        lastNameLabel.setBounds(200, 50, 50, 20);
-        panel.add(lastNameLabel);
-        lastNameField = new JTextField();
-        lastNameField.setBounds(250, 50, 120, 20);
-        panel.add(lastNameField);
+        // First Name
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formPanel.add(new JLabel("First Name:"), gbc);
+        firstNameField = new JTextField(15);
+        gbc.gridx = 1;
+        formPanel.add(firstNameField, gbc);
 
-        // Date of birth label and field
-        dobLabel = new JLabel("Date of Birth");
-        dobLabel.setBounds(20, 90, 100, 20);
-        panel.add(dobLabel);
-        dobField = new JTextField();
-        dobField.setBounds(120, 90, 120, 20);
-        panel.add(dobField);
+        // Last Name
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formPanel.add(new JLabel("Last Name:"), gbc);
+        lastNameField = new JTextField(15);
+        gbc.gridx = 1;
+        formPanel.add(lastNameField, gbc);
 
-        // Email label and field
-        emailLabel = new JLabel("Email");
-        emailLabel.setBounds(20, 130, 50, 20);
-        panel.add(emailLabel);
-        emailField = new JTextField();
-        emailField.setBounds(70, 130, 120, 20);
-        panel.add(emailField);
+        // Date of Birth
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        formPanel.add(new JLabel("Date of Birth:"), gbc);
+        dobField = new JTextField(15);
+        gbc.gridx = 1;
+        formPanel.add(dobField, gbc);
 
-        // ID label and field
-        idLabel = new JLabel("ID");
-        idLabel.setBounds(200, 130, 50, 20);
-        panel.add(idLabel);
-        idField = new JTextField();
-        idField.setBounds(250, 130, 120, 20);
-        panel.add(idField);
+        // Email
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        formPanel.add(new JLabel("Email:"), gbc);
+        emailField = new JTextField(15);
+        gbc.gridx = 1;
+        formPanel.add(emailField, gbc);
 
-        // Sport label and field
-        sportLabel = new JLabel("Sport");
-        sportLabel.setBounds(20, 170, 50, 20);
-        panel.add(sportLabel);
+        // ID
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        formPanel.add(new JLabel("ID:"), gbc);
+        idField = new JTextField(15);
+        gbc.gridx = 1;
+        formPanel.add(idField, gbc);
 
+        // Sport
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        formPanel.add(new JLabel("Sport:"), gbc);
         sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(members.toArray(new Team[0])));
-        sportDropDown.setBounds(70, 170, 120, 20);
-        panel.add(sportDropDown);
+        gbc.gridx = 1;
+        formPanel.add(sportDropDown, gbc);
 
-        // Classes label and fields
-        classesLabel = new JLabel("Classes");
-        classesLabel.setBounds(200, 170, 60, 20);
-        panel.add(classesLabel);
-        class1Field = new JTextField();
-        class1Field.setBounds(250, 170, 60, 20);
-        panel.add(class1Field);
-        class2Field = new JTextField();
-        class2Field.setBounds(320, 170, 60, 20);
-        panel.add(class2Field);
-        class3Field = new JTextField();
-        class3Field.setBounds(390, 170, 60, 20);
-        panel.add(class3Field);
+        // Classes
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        formPanel.add(new JLabel("Classes:"), gbc);
 
-        // Register button
+        JPanel classPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        class1Field = new JTextField(5);
+        class2Field = new JTextField(5);
+        class3Field = new JTextField(5);
+        classPanel.add(class1Field);
+        classPanel.add(class2Field);
+        classPanel.add(class3Field);
+        gbc.gridx = 1;
+        formPanel.add(classPanel, gbc);
+
+        mainPanel.add(formPanel, BorderLayout.CENTER);
+
+        // Buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         registerButton = new JButton("Register");
-        registerButton.setBounds(150, 250, 100, 30);
-        panel.add(registerButton);
-
-        // Clear button
         clearButton = new JButton("Clear");
-        clearButton.setBounds(260, 250, 100, 30);
-        panel.add(clearButton);
-
-        // Return button
         returnButton = new JButton("Menu");
-        returnButton.setBounds(300, 300, 50,20);
-        panel.add(returnButton);
+        buttonPanel.add(registerButton);
+        buttonPanel.add(clearButton);
+        buttonPanel.add(returnButton);
 
-        return panel;
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return mainPanel;
     }
 }
-

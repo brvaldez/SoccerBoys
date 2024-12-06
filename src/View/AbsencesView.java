@@ -25,12 +25,14 @@ public class AbsencesView extends JFrame {
         this.members = members;
 
         // Window setup
-        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Center window on screen
-
-        // Add components to the frame
+        setLocationRelativeTo(null); // Center the window
         add(AbsencesComponents(), BorderLayout.CENTER);
+
+        // Automatically size window based on content
+        pack();
+        setMinimumSize(new Dimension(800, 600)); // Minimum size to ensure usability
+        setLocationRelativeTo(null); // Ensure window always appears centered
 
         AbsencesController controller = new AbsencesController(this, welcomeView);
 
@@ -60,11 +62,15 @@ public class AbsencesView extends JFrame {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         mainPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // Central components panel
+        // Central components panel with scrollable content
         JPanel componentsPanel = new JPanel(new GridBagLayout());
+        JScrollPane scrollPane = new JScrollPane(componentsPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
 
         // Section 1: Manage Team Absences
         gbc.gridx = 0;
@@ -153,7 +159,7 @@ public class AbsencesView extends JFrame {
         returnButton = new JButton("Return to Menu");
         componentsPanel.add(returnButton, gbc);
 
-        mainPanel.add(componentsPanel, BorderLayout.CENTER);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         return mainPanel;
     }
