@@ -17,6 +17,8 @@ public class CreateTeamView extends JFrame {
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
     private List<Coach> coaches;
 
+    public AbsencesView absencesView;
+
     public CreateTeamView(WelcomeView welcomeView, List<Team> teams, List<Coach> coaches) {
         super("Manage Teams");
         this.coaches = coaches;
@@ -29,7 +31,7 @@ public class CreateTeamView extends JFrame {
         // Add components to the frame
         add(CreateTeamComponents(), BorderLayout.CENTER);
 
-        CreateTeamController controller = new CreateTeamController(this, welcomeView);
+        CreateTeamController controller = new CreateTeamController(this, welcomeView, absencesView);
 
         // Populate coach dropdown
         for (Coach coach : coaches) {

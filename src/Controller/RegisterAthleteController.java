@@ -14,7 +14,6 @@ import java.util.Map;
 public class RegisterAthleteController implements ActionListener {
     private RegisterAthleteView registerAthleteView;
     private WelcomeView welcomeView;
-    public JComboBox<Team> sportDropDown;
 
     public RegisterAthleteController(RegisterAthleteView registerAthleteView, WelcomeView welcomeView) {
         this.registerAthleteView = registerAthleteView;
@@ -23,9 +22,7 @@ public class RegisterAthleteController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // If the register athlete button is clicked
         if (e.getSource() == registerAthleteView.registerButton) {
-            // Collect the data from the form using getter methods
             String firstName = registerAthleteView.firstNameField.getText().trim();
             String lastName = registerAthleteView.lastNameField.getText().trim();
             String dob = registerAthleteView.dobField.getText().trim();
@@ -41,18 +38,15 @@ public class RegisterAthleteController implements ActionListener {
             }
             String name = firstName + lastName;
 
-            // Create a map to store classes and their absences
             Map<String, Integer> classAbsences = new HashMap<>();
-
-            // Add non-empty classes to the map, starting with 0 absences
             classAbsences.put(class1, 0);
             classAbsences.put(class2, 0);
             classAbsences.put(class3, 0);
 
-            // Create the StudentAthlete object and pass the map of classes and absences
             Athlete athlete = new Athlete(name, dob, email, id, classAbsences);
+            Team.getMembers().add(athlete);
 
-            Team.members.add(athlete);
+            System.out.println(Team.getMembers());
 
             registerAthleteView.firstNameField.setText("");
             registerAthleteView.lastNameField.setText("");
@@ -63,8 +57,7 @@ public class RegisterAthleteController implements ActionListener {
             registerAthleteView.class1Field.setText("");
             registerAthleteView.class2Field.setText("");
             registerAthleteView.class3Field.setText("");
-        }
-        else if (e.getSource() == registerAthleteView.clearButton){
+        } else if (e.getSource() == registerAthleteView.clearButton) {
             registerAthleteView.firstNameField.setText("");
             registerAthleteView.lastNameField.setText("");
             registerAthleteView.dobField.setText("");
@@ -74,8 +67,7 @@ public class RegisterAthleteController implements ActionListener {
             registerAthleteView.class1Field.setText("");
             registerAthleteView.class2Field.setText("");
             registerAthleteView.class3Field.setText("");
-        }
-        else if(e.getSource() == registerAthleteView.returnButton){
+        } else if (e.getSource() == registerAthleteView.returnButton) {
             registerAthleteView.setVisible(false);
             welcomeView.setVisible(true);
         }

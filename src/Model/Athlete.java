@@ -37,4 +37,9 @@ public class Athlete implements Component{
     public void displayDetails(){
         System.out.println("Student: " + getName()+ "Absences: " + getClasses());
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

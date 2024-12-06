@@ -1,3 +1,4 @@
+// WelcomeView.java
 package View;
 
 import Controller.WelcomeController;
@@ -13,12 +14,14 @@ import java.util.List;
 public class WelcomeView extends JFrame {
 
     public JButton createTeamButton, registerAthleteButton, absencesButton;
+    private List<Team> teams;
+    private List<Coach> coaches;
 
     public WelcomeView() {
         super("Welcome Coach!!!");
 
-        List<Team> teams = new ArrayList<>();
-        List<Coach> coaches = new ArrayList<>();
+        teams = new ArrayList<>();
+        coaches = new ArrayList<>();
 
         coaches.add(new Coach("Bruno Valdez"));
         coaches.add(new Coach("Manuel Rodriguez"));
@@ -41,6 +44,10 @@ public class WelcomeView extends JFrame {
         absencesButton.addActionListener(e -> new AbsencesView(this, teams));
 
         setVisible(true);
+    }
+
+    public List<Team> getTeams() {
+        return teams;
     }
 
     public JPanel WelcomeComponents() {
