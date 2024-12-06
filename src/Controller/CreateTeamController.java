@@ -3,7 +3,9 @@ package Controller;
 import Model.Coach;
 import Model.Component;
 import Model.Team;
+import View.AbsencesView;
 import View.CreateTeamView;
+import View.RegisterAthleteView;
 import View.WelcomeView;
 
 import javax.swing.*;
@@ -15,6 +17,8 @@ public class CreateTeamController implements ActionListener {
     private CreateTeamView createTeamView;
     private WelcomeView welcomeView;
     private List<Coach> coaches;
+    private RegisterAthleteView registerAthleteView;
+    private AbsencesView AbsencesView;
 
     public CreateTeamController(CreateTeamView createTeamView, WelcomeView welcomeView) {
         this.createTeamView = createTeamView;
@@ -65,6 +69,8 @@ public class CreateTeamController implements ActionListener {
     public void addTeam(Team team){
         team.addMember(team);
         createTeamView.updateTeamsDropDown();
+        AbsencesView.updateTeamsDropDown();
+        registerAthleteView.updateTeamsDropDown();
     }
     public void changeCoach(Team sport, Coach newcoach){
         sport.setCoach(newcoach);

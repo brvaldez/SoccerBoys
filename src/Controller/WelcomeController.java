@@ -9,35 +9,47 @@ import View.AbsencesView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeController implements ActionListener {
     private WelcomeView welcomeView;
     private List<Team> teams;
     private List<Coach> coaches;
+    private CreateTeamView createTeamView;
+    private RegisterAthleteView registerAthleteView;
+    private AbsencesView absencesView;
+
     public WelcomeController(WelcomeView welcomeView, List<Team> teams, List<Coach> coaches) {
         this.welcomeView = welcomeView;
         this.teams = teams;
         this.coaches = coaches;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        // If the submit button is clicked
         if (e.getSource() == welcomeView.createTeamButton) {
-            new CreateTeamView(welcomeView, coaches);
-            welcomeView.setVisible(false);  // Hide the welcome window
-        }
-        else if(e.getSource() == welcomeView.registerAthleteButton){
-            new RegisterAthleteView(welcomeView, teams);
-            welcomeView.setVisible(false);
-        }
-        else if (e.getSource() == welcomeView.absencesButton){
-            if (teams == null) {
-                teams = new ArrayList<>();
+            if (createTeamView == null) {
+                createTeamView = new CreateTeamView(welcomeView, teams, coaches);
+            } else {
+                createTeamView.setVisible(true);
             }
-            new AbsencesView(welcomeView, teams);
             welcomeView.setVisible(false);
+        } else if (e.getSource() == welcomeView.registerAthleteButton) {
+            if (registerAthleteView == null) {
+                registerAthleteView = new RegisterAthleteView(welcomeView, teams);
+            } else {
+                registerAthleteView.setVisible(true);
+            }
+            welcomeView.setVisible(false);
+        } else if (e.getSource() == welcomeView.absencesButton) {
+            if (absencesView == null) {
+                absencesView = new AbsencesView(welcomeView, teams);
+            } else {
+                absencesView.setVisible(true);
+            }
+            welcomeView.setVisible(false);
+            System.out.println("Teams: " + Team.getMembers());
         }
     }
 }
+

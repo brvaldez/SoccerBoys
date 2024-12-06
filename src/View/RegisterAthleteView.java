@@ -88,7 +88,7 @@ public class RegisterAthleteView extends JFrame {
         sportLabel.setBounds(20, 170, 50, 20);
         panel.add(sportLabel);
 
-        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(members.toArray(new Team[0])));
+        sportDropDown = new JComboBox<>();
         sportDropDown.setBounds(70, 170, 120, 20);
         panel.add(sportDropDown);
 
@@ -122,6 +122,14 @@ public class RegisterAthleteView extends JFrame {
         panel.add(returnButton);
 
         return panel;
+    }
+    public void updateTeamsDropDown() {
+        sportDropDown.removeAllItems();
+        for (Component team : Team.getMembers()) {
+            sportDropDown.addItem((Team) team);
+        }
+        repaint();
+        revalidate();
     }
 }
 

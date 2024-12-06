@@ -9,17 +9,15 @@ import Model.Team;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 public class CreateTeamView extends JFrame {
-    private JLabel sportLabel, coachLabel, absencesLabel, sportChangeLabel, newCoachLabel, removeSportLabel;
     public JTextField sportField, absencesField;
     public JButton addTeamButton, changeCoachButton, removeTeamButton, returnButton;
-    public JComboBox<Team> sportDropdown, sportDropdown2, removeSportDropdown;
+    public JComboBox<Team> sportDropdown2, removeSportDropdown;
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
     private List<Coach> coaches;
 
-    public CreateTeamView(WelcomeView welcomeView, List<Coach> coaches) {
+    public CreateTeamView(WelcomeView welcomeView, List<Team> teams, List<Coach> coaches) {
         super("Manage Teams");
         this.coaches = coaches;
 

@@ -36,9 +36,9 @@ public class WelcomeView extends JFrame {
         add(WelcomeComponents());
 
         // Add action listeners for the buttons
-        createTeamButton.addActionListener(controller);
-        registerAthleteButton.addActionListener(controller);
-        absencesButton.addActionListener(controller);
+        createTeamButton.addActionListener(e -> new CreateTeamView(this, teams, coaches));
+        registerAthleteButton.addActionListener(e -> new RegisterAthleteView(this, teams));
+        absencesButton.addActionListener(e -> new AbsencesView(this, teams));
 
         setVisible(true);
     }
