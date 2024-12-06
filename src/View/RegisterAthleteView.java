@@ -15,10 +15,11 @@ public class RegisterAthleteView extends JFrame {
     public JButton registerButton, clearButton, returnButton;
     public JComboBox<Team> sportDropDown;
     private List<Component> members;
-
+    private AbsencesView absencesView;
     // Create the frame
-    public RegisterAthleteView(WelcomeView welcomeView) {
+    public RegisterAthleteView(WelcomeView welcomeView, AbsencesView absencesView) {
         super("Register Student Athlete");
+        this.absencesView = absencesView;
         this.members = Team.getMembers();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,13 +28,13 @@ public class RegisterAthleteView extends JFrame {
         // Add components to the frame
         add(RegisterAthleteComponents(), BorderLayout.CENTER);
 
-        RegisterAthleteController controller = new RegisterAthleteController(this, welcomeView);
+        RegisterAthleteController controller = new RegisterAthleteController(this, welcomeView, this.absencesView);
 
         // Add action listeners for buttons
         registerButton.addActionListener(controller);
         clearButton.addActionListener(controller);
         returnButton.addActionListener(controller);
-
+        sportDropDown.addActionListener(controller);
         // Pack to dynamically size the window
         pack();
         setMinimumSize(new Dimension(600, 400)); // Set a minimum size for usability

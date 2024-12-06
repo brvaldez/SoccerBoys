@@ -28,10 +28,12 @@ public class Team implements Component {
         return members;
     }
 
-    public static void setAbsencesLimit(int absencesLimit) {
-        Team.absencesLimit = absencesLimit;
+    public void setAbsencesLimit(int absencesLimit) {
+        this.absencesLimit = absencesLimit;
         for (Component member : members){
-            Team.setAbsencesLimit(absencesLimit);
+            if (member instanceof Team) {
+                ((Team) member).setAbsencesLimit(absencesLimit); // Avoid infinite loop by ensuring no circular dependencies
+            }
         }
     }
     @Override

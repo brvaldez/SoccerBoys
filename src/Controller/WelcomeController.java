@@ -38,14 +38,14 @@ public class WelcomeController implements ActionListener {
             welcomeView.setVisible(false);
         } else if (e.getSource() == welcomeView.registerAthleteButton) {
             if (registerAthleteView == null) {
-                registerAthleteView = new RegisterAthleteView(welcomeView);
+                registerAthleteView = new RegisterAthleteView(welcomeView, absencesView);
             } else {
                 registerAthleteView.setVisible(true);
             }
             welcomeView.setVisible(false);
         } else if (e.getSource() == welcomeView.absencesButton) {
             if (absencesView == null) {
-                absencesView = new AbsencesView(welcomeView);
+                absencesView = new AbsencesView(welcomeView, teams);
             } else {
                 absencesView.setVisible(true);
             }

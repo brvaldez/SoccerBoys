@@ -29,7 +29,8 @@ public class AbsencesController implements ActionListener {
         }
         else if (e.getSource() == absencesView.athleteDropDown) {
             Athlete selectedAthlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
-            updateClassList(selectedAthlete);
+            System.out.println("Selected athlete: " + selectedAthlete);
+            absencesView.updateClassDropDown(selectedAthlete);
         }
         else if (e.getSource() == absencesView.changeLimitButton) {
             Team sport = (Team) absencesView.sportDropDown.getSelectedItem();
@@ -77,14 +78,14 @@ public class AbsencesController implements ActionListener {
     // Update the athletes list in the view based on the selected team
     public void updateAthletesList(Team selectedTeam) {
         List<Component> teamAthletes = selectedTeam.getMembers(); // Assuming `getMembers` returns the list of athletes
-        absencesView.updateAthletesList(teamAthletes);
+        absencesView.updateAthletesDropDown(teamAthletes);
     }
 
-    // Update the class list for the selected athlete
+    /* Update the class list for the selected athlete
     public void updateClassList(Athlete selectedAthlete) {
-        List<String> classes = new ArrayList<>(selectedAthlete.getClasses().keySet());
-        absencesView.updateClassDropDown(classes);
-    }
+        List<String> classNames = new ArrayList<>(selectedAthlete.getClasses().keySet());
+        absencesView.updateClassDropDown(classNames);
+    }*/
     public void changeTeamAbsencesLimit(Team sport, int absences){
         Team team; // Implement this method to fetch the appropriate team
         team = sport;
@@ -96,8 +97,14 @@ public class AbsencesController implements ActionListener {
         Map<String, Integer> classes = athlete.getClasses(); // Assuming getClasses() returns the HashMap
         int currentAbsences = classes.getOrDefault(classMissed, 0);
         classes.put(classMissed, currentAbsences + 1);
+        System.out.println("Current absences: " + currentAbsences);
     }
-    public void removeAbsence(Athlete athlete, String classMissed){}
+    public void removeAbsence(Athlete athlete, String classMissed){
+        Map<String, Integer> classes = athlete.getClasses(); // Assuming getClasses() returns the HashMap
+        int currentAbsences = classes.getOrDefault(classMissed, 0);
+        classes.put(classMissed, currentAbsences - 1);
+        System.out.println("Current absences: " + currentAbsences);
+    }
     public void checkAbsences(Team sport, Athlete athlete){}
     public void createReport(Team sport, Athlete athlete){}
 }

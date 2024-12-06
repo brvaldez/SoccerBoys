@@ -21,9 +21,8 @@ public class WelcomeView extends JFrame {
 
     public WelcomeView() {
         super("Welcome Coach!!!");
-        this.registerAthleteView = new RegisterAthleteView(this);
-        this.absencesView= new AbsencesView(this);
-        //teams = new ArrayList<>();
+        this.registerAthleteView = new RegisterAthleteView(this, absencesView);
+        this.absencesView= new AbsencesView(this, teams);
         coaches = new ArrayList<>();
 
         coaches.add(new Coach("Bruno Valdez"));

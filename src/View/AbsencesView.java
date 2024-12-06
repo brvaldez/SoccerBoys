@@ -8,7 +8,9 @@ import Model.Team;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AbsencesView extends JFrame {
     public JTextField limitAbsencesField;
@@ -19,9 +21,9 @@ public class AbsencesView extends JFrame {
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
     private List<Component> members;
 
-    public AbsencesView(WelcomeView welcomeView) {
+    public AbsencesView(WelcomeView welcomeView, List<Component> members) {
         super("Absence Management");
-        this.members = Team.getMembers();
+        this.members = members;
 
         // Window setup
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,8 +44,9 @@ public class AbsencesView extends JFrame {
         checkAbsencesButton.addActionListener(controller);
         reportButton.addActionListener(controller);
         returnButton.addActionListener(controller);
-
-
+        sportDropDown.addActionListener(controller);
+        athleteDropDown.addActionListener(controller);
+        athleteDropDown2.addActionListener(controller);
         /* Disable controls if no teams are available
         if (members.isEmpty()) {
             disableAbsenceControls();
@@ -173,21 +176,38 @@ public class AbsencesView extends JFrame {
         revalidate();
     }
     // Update Athlete list based on the selected team
-    public void updateAthletesList(List<Component> athletes) {
+    public void updateAthletesDropDown(List <Component> teamAthletes) {
         athleteDropDown.removeAllItems();
-        for (Component athlete : athletes) {
-            athleteDropDown.addItem(athlete);
+        athleteDropDown2.removeAllItems();
+            for (Component athlete : teamAthletes) {
+                if (athlete instanceof Athlete) {
+                    athleteDropDown.addItem(athlete);
+                    athleteDropDown2.addItem(athlete);
+                }
+            }
+        repaint();
+        revalidate();
+    }
+    public void updateClassDropDown(Athlete athlete) {
+        if (athlete == null) {
+            System.out.println("Athlete is null");
+            return;
+        }
+
+        Map<String, ?> classesMap = athlete.getClasses();
+        if (classesMap.isEmpty()) {
+            System.out.println("No classes found for athlete: " + athlete.getName());
+        } else {
+            List<String> classNames = new ArrayList<>(classesMap.keySet());
+            System.out.println("Classes available: " + classNames);
+            classDropDown.removeAllItems();
+            for (String className : classNames) {
+                classDropDown.addItem(className);
+            }
+            repaint();
+            revalidate();
         }
     }
-
-    // Update class list for the selected athlete
-    public void updateClassDropDown(List<String> classes) {
-        classDropDown.removeAllItems();
-        for (String className : classes) {
-            classDropDown.addItem(className);
-        }
-    }
-
     // Disable controls if there are no teams available
     private void disableAbsenceControls() {
         sportDropDown.setEnabled(false);
