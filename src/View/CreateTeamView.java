@@ -21,8 +21,10 @@ public class CreateTeamView extends JFrame {
     private AbsencesView absencesView;
     private RegisterAthleteView registerAthleteView;
 
-    public CreateTeamView(WelcomeView welcomeView, AbsencesView absencesView, RegisterAthleteView registerAthleteView, List<Component> teams, List<Coach> coaches) {
+    public CreateTeamView(WelcomeView welcomeView, AbsencesView absencesView, RegisterAthleteView registerAthleteView, List<Coach> coaches) {
         super("Manage Teams");
+        this.absencesView = absencesView;
+        this.registerAthleteView = registerAthleteView;
         this.coaches = coaches;
         this.teams = Team.getMembers();
 

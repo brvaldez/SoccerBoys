@@ -19,7 +19,7 @@ public class AbsencesView extends JFrame {
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
     private List<Component> members;
 
-    public AbsencesView(WelcomeView welcomeView, List<Component> members) {
+    public AbsencesView(WelcomeView welcomeView) {
         super("Absence Management");
         this.members = Team.getMembers();
 
@@ -44,10 +44,10 @@ public class AbsencesView extends JFrame {
         returnButton.addActionListener(controller);
 
 
-        // Disable controls if no teams are available
+        /* Disable controls if no teams are available
         if (members.isEmpty()) {
             disableAbsenceControls();
-        } else enableAbsenceControls();
+        } else enableAbsenceControls();*/
 
         setVisible(true);
     }

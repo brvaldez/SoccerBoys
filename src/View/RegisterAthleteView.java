@@ -10,15 +10,16 @@ import java.awt.*;
 import java.util.List;
 
 public class RegisterAthleteView extends JFrame {
+
     public JTextField firstNameField, lastNameField, dobField, idField, emailField, class1Field, class2Field, class3Field;
     public JButton registerButton, clearButton, returnButton;
     public JComboBox<Team> sportDropDown;
     private List<Component> members;
 
     // Create the frame
-    public RegisterAthleteView(WelcomeView welcomeView, List<Component> members) {
+    public RegisterAthleteView(WelcomeView welcomeView) {
         super("Register Student Athlete");
-        this.members = members;
+        this.members = Team.getMembers();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());

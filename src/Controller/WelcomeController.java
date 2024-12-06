@@ -31,21 +31,21 @@ public class WelcomeController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == welcomeView.createTeamButton) {
             if (createTeamView == null) {
-                createTeamView = new CreateTeamView(welcomeView, absencesView, registerAthleteView, teams, coaches);
+                createTeamView = new CreateTeamView(welcomeView, absencesView, registerAthleteView, coaches);
             } else {
                 createTeamView.setVisible(true);
             }
             welcomeView.setVisible(false);
         } else if (e.getSource() == welcomeView.registerAthleteButton) {
             if (registerAthleteView == null) {
-                registerAthleteView = new RegisterAthleteView(welcomeView, teams);
+                registerAthleteView = new RegisterAthleteView(welcomeView);
             } else {
                 registerAthleteView.setVisible(true);
             }
             welcomeView.setVisible(false);
         } else if (e.getSource() == welcomeView.absencesButton) {
             if (absencesView == null) {
-                absencesView = new AbsencesView(welcomeView, teams);
+                absencesView = new AbsencesView(welcomeView);
             } else {
                 absencesView.setVisible(true);
             }

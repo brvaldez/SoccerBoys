@@ -4,7 +4,7 @@ package View;
 import Controller.WelcomeController;
 import Model.Coach;
 import Model.Component;
-
+import Model.Team;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -21,7 +21,8 @@ public class WelcomeView extends JFrame {
 
     public WelcomeView() {
         super("Welcome Coach!!!");
-
+        this.registerAthleteView = new RegisterAthleteView(this);
+        this.absencesView= new AbsencesView(this);
         //teams = new ArrayList<>();
         coaches = new ArrayList<>();
 
