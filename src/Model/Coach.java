@@ -11,11 +11,12 @@ public class Coach implements Observer{
     public String getName() {
         return name;
     }
+
     @Override
-    public void update(String playerName, int absences, int maxAbsences) {
-        String message = playerName + " has reached " + absences + " absences, exceeding the limit of " + maxAbsences + "!";
+    public void update(String event) {
+        //String message = playerName + " has reached " + absences + " absences, exceeding the limit of " + maxAbsences + "!";
         // Display pop-up notification
-        JOptionPane.showMessageDialog(null, message, "Absence Alert", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, event, "Absence Alert", JOptionPane.WARNING_MESSAGE);
     }
     @Override
     public String toString() {

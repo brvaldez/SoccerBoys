@@ -5,6 +5,7 @@ import java.util.List;
 public class Team implements Component {
     private String teamName;
     public static List<Component> members = new ArrayList<>(); // List to hold TeamComponent objects
+    private static Observer observer;
     public static int absencesLimit;
     private Coach coach;
 
@@ -12,6 +13,11 @@ public class Team implements Component {
         this.teamName = teamName;
         this.coach = coach;
         this.absencesLimit = absencesLimit;
+        this.observer = coach;
+    }
+
+    public static void notifyObservers(String event) {
+            observer.update(event);
     }
 
     // Method to add a member (Athlete or another Team)

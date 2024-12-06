@@ -5,11 +5,10 @@ import Model.Component;
 import View.AbsencesView;
 import View.WelcomeView;
 import Model.Team;
-
-import javax.swing.*;
+import Model.Coach;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +62,7 @@ public class AbsencesController implements ActionListener {
         else if (e.getSource() == absencesView.checkAbsencesButton) {
             Team sport = (Team)absencesView.sportDropDown.getSelectedItem();
             Athlete athlete = (Athlete)absencesView.athleteDropDown.getSelectedItem();
-            checkAbsences(sport, athlete);
+            checkAbsences(sport);
         }
         else if (e.getSource() == absencesView.reportButton) {
             Team sport = (Team)absencesView.sportDropDown.getSelectedItem();
@@ -81,11 +80,6 @@ public class AbsencesController implements ActionListener {
         absencesView.updateAthletesDropDown(teamAthletes);
     }
 
-    /* Update the class list for the selected athlete
-    public void updateClassList(Athlete selectedAthlete) {
-        List<String> classNames = new ArrayList<>(selectedAthlete.getClasses().keySet());
-        absencesView.updateClassDropDown(classNames);
-    }*/
     public void changeTeamAbsencesLimit(Team sport, int absences){
         Team team; // Implement this method to fetch the appropriate team
         team = sport;
@@ -96,15 +90,20 @@ public class AbsencesController implements ActionListener {
     public void insertAbsence(Athlete athlete, String classMissed){
         Map<String, Integer> classes = athlete.getClasses(); // Assuming getClasses() returns the HashMap
         int currentAbsences = classes.getOrDefault(classMissed, 0);
-        classes.put(classMissed, currentAbsences + 1);
+        currentAbsences += 1;
+        classes.put(classMissed, currentAbsences);
         System.out.println("Current absences: " + currentAbsences);
+        if (currentAbsences >= Team.absencesLimit){
+            Team.notifyObservers(athlete.getName() + " has reached the limit of absences in " + classMissed);
+        }
     }
     public void removeAbsence(Athlete athlete, String classMissed){
         Map<String, Integer> classes = athlete.getClasses(); // Assuming getClasses() returns the HashMap
         int currentAbsences = classes.getOrDefault(classMissed, 0);
-        classes.put(classMissed, currentAbsences - 1);
+        currentAbsences -= 1;
+        classes.put(classMissed, currentAbsences);
         System.out.println("Current absences: " + currentAbsences);
     }
-    public void checkAbsences(Team sport, Athlete athlete){}
+    public void checkAbsences(Team sport){}
     public void createReport(Team sport, Athlete athlete){}
 }
