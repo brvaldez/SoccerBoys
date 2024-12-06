@@ -11,6 +11,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AbsencesView extends JFrame {
     public JTextField limitAbsencesField;
@@ -155,6 +157,19 @@ public class AbsencesView extends JFrame {
         gbc.gridy = 12;
         reportButton = new JButton("Generate Report");
         componentsPanel.add(reportButton, gbc);
+        // Add action listener for the report button
+        reportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Team sport = (Team) sportDropDown.getSelectedItem();
+                Athlete athlete = (Athlete) athleteDropDown.getSelectedItem();
+                if (sport != null && athlete != null) {
+                    AbsencesController.createReport(sport, athlete);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a sport and an athlete!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         // Return Button
         gbc.gridx = 1;
@@ -179,12 +194,12 @@ public class AbsencesView extends JFrame {
     public void updateAthletesDropDown(List <Component> teamAthletes) {
         athleteDropDown.removeAllItems();
         athleteDropDown2.removeAllItems();
-            for (Component athlete : teamAthletes) {
-                if (athlete instanceof Athlete) {
-                    athleteDropDown.addItem(athlete);
-                    athleteDropDown2.addItem(athlete);
-                }
+        for (Component athlete : teamAthletes) {
+            if (athlete instanceof Athlete) {
+                athleteDropDown.addItem(athlete);
+                athleteDropDown2.addItem(athlete);
             }
+        }
         repaint();
         revalidate();
     }

@@ -11,6 +11,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 public class AbsencesController implements ActionListener {
     private AbsencesView absencesView;
@@ -109,5 +115,36 @@ public class AbsencesController implements ActionListener {
         System.out.println("Current absences: " + currentAbsences);
     }
     public void checkAbsences(Team sport){}
-    public void createReport(Team sport, Athlete athlete){}
+    public static void createReport(Team sport, Athlete athlete){
+        // Create a new JFrame for the report
+        JFrame reportFrame = new JFrame("Athlete Report");
+        reportFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        reportFrame.setLayout(new BorderLayout());
+
+        // Create a panel to hold the athlete's information
+        JPanel reportPanel = new JPanel(new GridLayout(0, 1));
+        reportPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        // Add athlete's information to the panel
+        reportPanel.add(new JLabel("Athlete Name: " + athlete.getName()));
+        reportPanel.add(new JLabel("Date of Birth: " + athlete.getDob()));
+        reportPanel.add(new JLabel("Email: " + athlete.getEmail()));
+        reportPanel.add(new JLabel("ID: " + athlete.getId()));
+
+        // Add classes and absences information
+        Map<String, Integer> classes = athlete.getClasses();
+        for (Map.Entry<String, Integer> entry : classes.entrySet()) {
+            reportPanel.add(new JLabel("Class: " + entry.getKey() + ", Absences: " + entry.getValue()));
+        }
+
+        // Add the panel to the frame
+        reportFrame.add(reportPanel, BorderLayout.CENTER);
+
+        // Set the frame size and make it visible
+        reportFrame.setSize(400, 300);
+        reportFrame.setLocationRelativeTo(null); // Center the frame
+        reportFrame.setVisible(true);
+    }
 }
+
+
