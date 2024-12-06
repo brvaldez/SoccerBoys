@@ -123,5 +123,14 @@ public class RegisterAthleteView extends JFrame {
 
         return panel;
     }
+    public void updateTeamsDropDown() {
+        sportDropDown.removeAllItems();
+        for (Component team : Team.getMembers()) {
+            sportDropDown.addItem((Team) team);
+        }
+        repaint();
+        revalidate();
+    }
 }
+
 
