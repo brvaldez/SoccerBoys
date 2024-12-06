@@ -100,8 +100,12 @@ public class AbsencesController implements ActionListener {
     public void removeAbsence(Athlete athlete, String classMissed){
         Map<String, Integer> classes = athlete.getClasses(); // Assuming getClasses() returns the HashMap
         int currentAbsences = classes.getOrDefault(classMissed, 0);
-        currentAbsences -= 1;
-        classes.put(classMissed, currentAbsences);
+        if (currentAbsences > 0) {
+            currentAbsences -= 1;
+            classes.put(classMissed, currentAbsences);
+        } else {
+            JOptionPane.showMessageDialog(null, "0 absences on this class", "Absence Alert", JOptionPane.WARNING_MESSAGE);
+        }
         System.out.println("Current absences: " + currentAbsences);
     }
     public void checkAbsences(Team sport){}
