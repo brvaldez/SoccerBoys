@@ -10,18 +10,21 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
+
 public class CreateTeamView extends JFrame {
     public JTextField sportField, absencesField;
     public JButton addTeamButton, changeCoachButton, removeTeamButton, returnButton;
     public JComboBox<Team> sportDropdown2, removeSportDropdown;
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
     private List<Coach> coaches;
+    private List<Component> teams;
+    private AbsencesView absencesView;
+    private RegisterAthleteView registerAthleteView;
 
-    public AbsencesView absencesView;
-
-    public CreateTeamView(WelcomeView welcomeView, List<Team> teams, List<Coach> coaches) {
+    public CreateTeamView(WelcomeView welcomeView, AbsencesView absencesView, RegisterAthleteView registerAthleteView, List<Component> teams, List<Coach> coaches) {
         super("Manage Teams");
         this.coaches = coaches;
+        this.teams = Team.getMembers();
 
         // Window setup
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +34,7 @@ public class CreateTeamView extends JFrame {
         // Add components to the frame
         add(CreateTeamComponents(), BorderLayout.CENTER);
 
-        CreateTeamController controller = new CreateTeamController(this, welcomeView, absencesView);
+        CreateTeamController controller = new CreateTeamController(this, welcomeView, this.absencesView, this.registerAthleteView);
 
         // Populate coach dropdown
         for (Coach coach : coaches) {

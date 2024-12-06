@@ -10,14 +10,13 @@ import java.awt.*;
 import java.util.List;
 
 public class RegisterAthleteView extends JFrame {
-    private JLabel nameLabel, firstNameLabel, lastNameLabel, dobLabel, idLabel, emailLabel, sportLabel, classesLabel;
     public JTextField firstNameField, lastNameField, dobField, idField, emailField, class1Field, class2Field, class3Field;
     public JButton registerButton, clearButton, returnButton;
     public JComboBox<Team> sportDropDown;
-    private List<Team> members;
+    private List<Component> members;
 
     // Create the frame
-    public RegisterAthleteView(WelcomeView welcomeView, List<Team> members) {
+    public RegisterAthleteView(WelcomeView welcomeView, List<Component> members) {
         super("Register Student Athlete");
         this.members = members;
 
@@ -101,7 +100,7 @@ public class RegisterAthleteView extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 5;
         formPanel.add(new JLabel("Sport:"), gbc);
-        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(members.toArray(new Team[0])));
+        sportDropDown = new JComboBox<>();
         gbc.gridx = 1;
         formPanel.add(sportDropDown, gbc);
 

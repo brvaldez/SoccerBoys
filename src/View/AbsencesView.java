@@ -17,11 +17,11 @@ public class AbsencesView extends JFrame {
     public JComboBox<Component> athleteDropDown2;
     public JComboBox<String> classDropDown;
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
-    private List<Team> members;
+    private List<Component> members;
 
-    public AbsencesView(WelcomeView welcomeView, List<Team> members) {
+    public AbsencesView(WelcomeView welcomeView, List<Component> members) {
         super("Absence Management");
-        this.members = members;
+        this.members = Team.getMembers();
 
         // Window setup
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

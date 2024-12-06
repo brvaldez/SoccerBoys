@@ -3,7 +3,7 @@ package View;
 
 import Controller.WelcomeController;
 import Model.Coach;
-import Model.Team;
+import Model.Component;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,13 +14,15 @@ import java.util.List;
 public class WelcomeView extends JFrame {
 
     public JButton createTeamButton, registerAthleteButton, absencesButton;
-    private List<Team> teams;
+    private List<Component> teams = new ArrayList<>();
     private List<Coach> coaches;
+    private AbsencesView absencesView;
+    private RegisterAthleteView registerAthleteView;
 
     public WelcomeView() {
         super("Welcome Coach!!!");
 
-        teams = new ArrayList<>();
+        //teams = new ArrayList<>();
         coaches = new ArrayList<>();
 
         coaches.add(new Coach("Bruno Valdez"));
@@ -28,7 +30,7 @@ public class WelcomeView extends JFrame {
         coaches.add(new Coach("Tania Roy"));
 
         // Listeners
-        WelcomeController controller = new WelcomeController(this, teams, coaches);
+        WelcomeController controller = new WelcomeController(this, absencesView, registerAthleteView, teams, coaches);
 
         // Window features
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,15 +41,11 @@ public class WelcomeView extends JFrame {
         add(WelcomeComponents());
 
         // Add action listeners for the buttons
-        createTeamButton.addActionListener(e -> new CreateTeamView(this, teams, coaches));
-        registerAthleteButton.addActionListener(e -> new RegisterAthleteView(this, teams));
-        absencesButton.addActionListener(e -> new AbsencesView(this, teams));
+        createTeamButton.addActionListener(controller);
+        registerAthleteButton.addActionListener(controller);
+        absencesButton.addActionListener(controller);
 
         setVisible(true);
-    }
-
-    public List<Team> getTeams() {
-        return teams;
     }
 
     public JPanel WelcomeComponents() {

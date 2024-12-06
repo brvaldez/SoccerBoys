@@ -15,12 +15,12 @@ public class Team implements Component {
     }
 
     // Method to add a member (Athlete or another Team)
-    public void addMember(Component member) {
+    public static void addMember(Component member) {
         members.add(member);
     }
 
     // Method to remove a member
-    public void removeMember(Component member) {
+    public static void removeMember(Component member) {
         members.remove(member);
     }
 

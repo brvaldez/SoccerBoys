@@ -16,10 +16,11 @@ public class CreateTeamController implements ActionListener {
     private RegisterAthleteView registerAthleteView;
     private AbsencesView absencesView;
 
-    public CreateTeamController(CreateTeamView createTeamView, WelcomeView welcomeView, AbsencesView absencesView) {
+    public CreateTeamController(CreateTeamView createTeamView, WelcomeView welcomeView, AbsencesView absencesView, RegisterAthleteView registerAthleteView) {
         this.createTeamView = createTeamView;
         this.welcomeView = welcomeView;
         this.absencesView = absencesView;
+        this.registerAthleteView = registerAthleteView;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class CreateTeamController implements ActionListener {
     }
 
     public void addTeam(Team team) {
-        welcomeView.getTeams().add(team);
+        Team.addMember(team);
         createTeamView.updateTeamsDropDown();
         absencesView.updateTeamsDropDown();
         registerAthleteView.updateTeamsDropDown();
@@ -71,7 +72,7 @@ public class CreateTeamController implements ActionListener {
     }
 
     public void removeTeam(Team team) {
-        welcomeView.getTeams().remove(team);
+        Team.removeMember(team);
         createTeamView.updateTeamsDropDown();
     }
 }
