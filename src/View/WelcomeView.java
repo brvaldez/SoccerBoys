@@ -33,6 +33,9 @@ public class WelcomeView extends JFrame {
         // Listeners
         WelcomeController controller = new WelcomeController(this, absencesView, registerAthleteView, teams, coaches);
 
+        registerAthleteView.setVisible(false);
+        absencesView.setVisible(false);
+
         // Window features
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 300);

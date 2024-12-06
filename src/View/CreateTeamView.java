@@ -14,7 +14,8 @@ import java.util.List;
 public class CreateTeamView extends JFrame {
     public JTextField sportField, absencesField;
     public JButton addTeamButton, changeCoachButton, removeTeamButton, returnButton;
-    public JComboBox<Team> sportDropdown2, removeSportDropdown;
+    public JComboBox<Component> sportDropdown2;
+    public JComboBox<Component> removeSportDropdown;
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
     private List<Coach> coaches;
     private List<Component> teams;
@@ -99,7 +100,7 @@ public class CreateTeamView extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 4;
         componentsPanel.add(new JLabel("Change Coach - Sport:"), gbc);
-        sportDropdown2 = new JComboBox<>();
+        sportDropdown2 = new JComboBox<Component>();
         gbc.gridx = 1;
         componentsPanel.add(sportDropdown2, gbc);
 
@@ -119,7 +120,7 @@ public class CreateTeamView extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 7;
         componentsPanel.add(new JLabel("Remove Team - Sport:"), gbc);
-        removeSportDropdown = new JComboBox<>();
+        removeSportDropdown = new JComboBox<Component>();
         gbc.gridx = 1;
         componentsPanel.add(removeSportDropdown, gbc);
 
@@ -142,10 +143,9 @@ public class CreateTeamView extends JFrame {
     public void updateTeamsDropDown() {
         sportDropdown2.removeAllItems();
         removeSportDropdown.removeAllItems();
-
         for (Component team : Team.getMembers()) {
-            sportDropdown2.addItem((Team) team);
-            removeSportDropdown.addItem((Team) team);
+            sportDropdown2.addItem(team);
+            removeSportDropdown.addItem(team);
         }
         repaint();
         revalidate();

@@ -37,10 +37,11 @@ public class CreateTeamController implements ActionListener {
                 throw new IllegalArgumentException("Absences must be a positive number!");
             }
             Team team = new Team(sport, coach, absences);
-            Team.addMember(team);
+            /*Team.addMember(team);
             createTeamView.updateTeamsDropDown();
             registerAthleteView.updateTeamsDropDown();
-            absencesView.updateTeamsDropDown();
+            absencesView.updateTeamsDropDown();*/
+            addTeam(team);
 
         } else if (e.getSource() == createTeamView.changeCoachButton) {
             Team team = (Team) createTeamView.sportDropdown2.getSelectedItem();
@@ -48,7 +49,7 @@ public class CreateTeamController implements ActionListener {
             team.setCoach(newCoach);
         } else if (e.getSource() == createTeamView.removeTeamButton) {
             Team sport = (Team) createTeamView.removeSportDropdown.getSelectedItem();
-            Team.removeMember(sport);
+            removeTeam(sport);
         } else if (e.getSource() == createTeamView.returnButton) {
             createTeamView.setVisible(false);
             welcomeView.setVisible(true);
@@ -59,19 +60,19 @@ public class CreateTeamController implements ActionListener {
             }
         }
     }
-}
-    /*public void addTeam(Team team) {
+    public void addTeam(Team team) {
         Team.addMember(team);
         createTeamView.updateTeamsDropDown();
         absencesView.updateTeamsDropDown();
         registerAthleteView.updateTeamsDropDown();
     }
-
     public void changeCoach(Team sport, Coach newCoach) {
         sport.setCoach(newCoach);
     }
-
     public void removeTeam(Team team) {
         Team.removeMember(team);
         createTeamView.updateTeamsDropDown();
-    }*/
+        absencesView.updateTeamsDropDown();
+        registerAthleteView.updateTeamsDropDown();
+    }
+}

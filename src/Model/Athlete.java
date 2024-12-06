@@ -9,6 +9,7 @@ public class Athlete implements Component{
     private String id;
     private Map<String, Integer> classes;
     private int absencesLimit;
+
     public Athlete(String name, String dob, String email, String id, Map<String, Integer> classes) {
         this.name = name;
         this.dob = dob;

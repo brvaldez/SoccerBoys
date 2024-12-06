@@ -19,7 +19,6 @@ public class RegisterAthleteController implements ActionListener {
         this.registerAthleteView = registerAthleteView;
         this.welcomeView = welcomeView;
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == registerAthleteView.registerButton) {
