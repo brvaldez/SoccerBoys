@@ -143,6 +143,8 @@ public class CreateTeamView extends JFrame {
     public void updateTeamsDropDown() {
         sportDropdown2.removeAllItems();
         removeSportDropdown.removeAllItems();
+        //sportDropdown2.addItem((Component) new PlaceholderItem<Team>("Insert a Sport"));
+       // removeSportDropdown.addItem((Component) new PlaceholderItem<Team>("Insert a Sport"));
         for (Component team : Team.getMembers()) {
             sportDropdown2.addItem(team);
             removeSportDropdown.addItem(team);

@@ -7,6 +7,7 @@ import View.RegisterAthleteView;
 import View.WelcomeView;
 import View.AbsencesView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,10 +38,7 @@ public class CreateTeamController implements ActionListener {
                 throw new IllegalArgumentException("Absences must be a positive number!");
             }
             Team team = new Team(sport, coach, absences);
-            /*Team.addMember(team);
-            createTeamView.updateTeamsDropDown();
-            registerAthleteView.updateTeamsDropDown();
-            absencesView.updateTeamsDropDown();*/
+
             addTeam(team);
 
         } else if (e.getSource() == createTeamView.changeCoachButton) {
@@ -49,6 +47,10 @@ public class CreateTeamController implements ActionListener {
             team.setCoach(newCoach);
         } else if (e.getSource() == createTeamView.removeTeamButton) {
             Team sport = (Team) createTeamView.removeSportDropdown.getSelectedItem();
+            if (sport == null) {
+                JOptionPane.showMessageDialog(absencesView, "Please select a valid athlete!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             removeTeam(sport);
         } else if (e.getSource() == createTeamView.returnButton) {
             createTeamView.setVisible(false);

@@ -3,6 +3,8 @@ package View;
 import Controller.AbsencesController;
 import Model.Athlete;
 import Model.Component;
+
+
 import Model.Team;
 
 import javax.swing.*;
@@ -49,6 +51,7 @@ public class AbsencesView extends JFrame {
         sportDropDown.addActionListener(controller);
         athleteDropDown.addActionListener(controller);
         athleteDropDown2.addActionListener(controller);
+        checkAbsencesButton.addActionListener(controller);
         /* Disable controls if no teams are available
         if (members.isEmpty()) {
             disableAbsenceControls();
@@ -157,19 +160,6 @@ public class AbsencesView extends JFrame {
         gbc.gridy = 12;
         reportButton = new JButton("Generate Report");
         componentsPanel.add(reportButton, gbc);
-        // Add action listener for the report button
-        reportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Team sport = (Team) sportDropDown.getSelectedItem();
-                Athlete athlete = (Athlete) athleteDropDown.getSelectedItem();
-                if (sport != null && athlete != null) {
-                    AbsencesController.createReport(sport, athlete);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please select a sport and an athlete!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
 
         // Return Button
         gbc.gridx = 1;
@@ -194,6 +184,8 @@ public class AbsencesView extends JFrame {
     public void updateAthletesDropDown(List <Component> teamAthletes) {
         athleteDropDown.removeAllItems();
         athleteDropDown2.removeAllItems();
+        //athleteDropDown.addItem((Component) new PlaceholderItem<Athlete>("Select an Athlete"));
+        //athleteDropDown2.addItem((Component) new PlaceholderItem<Athlete>("Select an Athlete"));
         for (Component athlete : teamAthletes) {
             if (athlete instanceof Athlete) {
                 athleteDropDown.addItem(athlete);
@@ -216,6 +208,7 @@ public class AbsencesView extends JFrame {
             List<String> classNames = new ArrayList<>(classesMap.keySet());
             System.out.println("Classes available: " + classNames);
             classDropDown.removeAllItems();
+            //classDropDown.addItem(String.valueOf(new PlaceholderItem<String>("Select a Class")));
             for (String className : classNames) {
                 classDropDown.addItem(className);
             }

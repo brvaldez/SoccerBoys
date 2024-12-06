@@ -51,4 +51,6 @@ public class Athlete implements Component{
     public String toString(){
         return name;
     }
+
+
 }
