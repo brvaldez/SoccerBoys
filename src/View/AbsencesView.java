@@ -11,7 +11,6 @@ import java.awt.*;
 import java.util.List;
 
 public class AbsencesView extends JFrame {
-    private JLabel manageTeamLabel, sportLabel, limitAbsencesLabel, athletesAbsencesLabel, athleteLabel, classLabel, generalInfoLabel, athleteReportLabel;
     public JTextField limitAbsencesField;
     public JComboBox<Team> sportDropDown;
     public JComboBox<Component> athleteDropDown;
@@ -44,10 +43,11 @@ public class AbsencesView extends JFrame {
         reportButton.addActionListener(controller);
         returnButton.addActionListener(controller);
 
+
         // Disable controls if no teams are available
         if (members.isEmpty()) {
             disableAbsenceControls();
-        }
+        } else enableAbsenceControls();
 
         setVisible(true);
     }
@@ -82,7 +82,7 @@ public class AbsencesView extends JFrame {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         componentsPanel.add(new JLabel("Sport:"), gbc);
-        sportDropDown = new JComboBox<>(new DefaultComboBoxModel<>(members.toArray(new Team[0])));
+        sportDropDown = new JComboBox<>();
         gbc.gridx = 1;
         componentsPanel.add(sportDropDown, gbc);
 
@@ -164,6 +164,14 @@ public class AbsencesView extends JFrame {
         return mainPanel;
     }
 
+    public void updateTeamsDropDown() {
+        sportDropDown.removeAllItems();
+        for (Component team : Team.getMembers()) {
+            sportDropDown.addItem((Team) team);
+        }
+        repaint();
+        revalidate();
+    }
     // Update Athlete list based on the selected team
     public void updateAthletesList(List<Component> athletes) {
         athleteDropDown.removeAllItems();
