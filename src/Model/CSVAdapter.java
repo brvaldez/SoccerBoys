@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -21,6 +22,7 @@ public class CSVAdapter {
                 writer.append(String.join(",", dataRow));
                 writer.append("\n");
             }
+            JOptionPane.showMessageDialog(null, "Report created Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("CSV file created successfully: " + fileName);
         } catch (IOException e) {
             e.printStackTrace();

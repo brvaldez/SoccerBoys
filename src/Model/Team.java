@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Team implements Component {
-    private static String teamName;
+    private String teamName;
     public static List<Component> members = new ArrayList<>(); // List to hold TeamComponent objects
     private static Observer observer;
     public static int absencesLimit;
@@ -64,7 +64,7 @@ public class Team implements Component {
     }
     public static List<String[]> collectDataForCSV() {
         List<String[]> data = new ArrayList<>();
-        data.add(new String[]{"Name", "Sport", "Absences"});
+        data.add(new String[]{"Name", "Absences"});
 
         for (Component member : members) {
             if (member instanceof Athlete) {
@@ -74,7 +74,6 @@ public class Team implements Component {
                 for (Map.Entry<String, Integer> entry : classes.entrySet()) {
                     data.add(new String[]{
                             athlete.getName(),
-                            teamName,
                             entry.getKey() + ": " + entry.getValue()
                     });
                 }
