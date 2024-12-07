@@ -77,7 +77,7 @@ public class RegisterAthleteView extends JFrame {
         // Date of Birth
         gbc.gridx = 0;
         gbc.gridy = 2;
-        formPanel.add(new JLabel("Date of Birth:"), gbc);
+        formPanel.add(new JLabel("Date of Birth: (MM/DD/YYYY"), gbc);
         dobField = new JTextField(15);
         gbc.gridx = 1;
         formPanel.add(dobField, gbc);

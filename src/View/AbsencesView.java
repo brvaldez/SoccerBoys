@@ -13,12 +13,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AbsencesView extends JFrame {
     public JTextField limitAbsencesField;
-    public JComboBox<Team> sportDropDown;
+    public JComboBox<Team> sportDropDown2;
     public JComboBox<Component> athleteDropDown;
     public JComboBox<Component> athleteDropDown2;
     public JComboBox<String> classDropDown;
@@ -48,7 +46,7 @@ public class AbsencesView extends JFrame {
         checkAbsencesButton.addActionListener(controller);
         reportButton.addActionListener(controller);
         returnButton.addActionListener(controller);
-        sportDropDown.addActionListener(controller);
+        sportDropDown2.addActionListener(controller);
         athleteDropDown.addActionListener(controller);
         athleteDropDown2.addActionListener(controller);
         checkAbsencesButton.addActionListener(controller);
@@ -90,9 +88,9 @@ public class AbsencesView extends JFrame {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         componentsPanel.add(new JLabel("Sport:"), gbc);
-        sportDropDown = new JComboBox<>();
+        sportDropDown2 = new JComboBox<>();
         gbc.gridx = 1;
-        componentsPanel.add(sportDropDown, gbc);
+        componentsPanel.add(sportDropDown2, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -173,9 +171,9 @@ public class AbsencesView extends JFrame {
     }
 
     public void updateTeamsDropDown() {
-        sportDropDown.removeAllItems();
+        sportDropDown2.removeAllItems();
         for (Component team : Team.getMembers()) {
-            sportDropDown.addItem((Team) team);
+            sportDropDown2.addItem((Team) team);
         }
         repaint();
         revalidate();
@@ -218,7 +216,7 @@ public class AbsencesView extends JFrame {
     }
     // Disable controls if there are no teams available
     private void disableAbsenceControls() {
-        sportDropDown.setEnabled(false);
+        sportDropDown2.setEnabled(false);
         athleteDropDown.setEnabled(false);
         limitAbsencesField.setEnabled(false);
         classDropDown.setEnabled(false);
@@ -232,7 +230,7 @@ public class AbsencesView extends JFrame {
 
     // Enable absence controls when a team is created
     public void enableAbsenceControls() {
-        sportDropDown.setEnabled(true);
+        sportDropDown2.setEnabled(true);
         athleteDropDown.setEnabled(true);
         limitAbsencesField.setEnabled(true);
         classDropDown.setEnabled(true);

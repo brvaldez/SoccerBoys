@@ -38,7 +38,17 @@ public class RegisterAthleteController implements ActionListener {
                 JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            String name = firstName + lastName;
+            // Validate date of birth format (MM-DD-YYYY)
+            if (!dob.matches("^(0[1-9]|1[0-2])/([0-2][0-9]|3[01])/\\d{4}$")) {
+                JOptionPane.showMessageDialog(null, "Invalid date format! Use MM-DD-YYYY.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            // Validate email format
+            if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+                JOptionPane.showMessageDialog(null, "Invalid email format!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String name = firstName + " " + lastName;
             Map<String, Integer> classAbsences = new HashMap<>();
             classAbsences.put(class1, 0);
             classAbsences.put(class2, 0);

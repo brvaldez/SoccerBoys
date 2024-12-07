@@ -38,10 +38,10 @@ public class Team implements Component {
     public void setAbsencesLimit(int absencesLimit) {
         this.absencesLimit = absencesLimit;
         for (Component member : members){
-            if (member instanceof Team) {
-                ((Team) member).setAbsencesLimit(absencesLimit); // Avoid infinite loop by ensuring no circular dependencies
+            if (member instanceof Athlete) {
+                member.setAbsencesLimit(absencesLimit); // Avoid infinite loop by ensuring no circular dependencies
             }
-        }
+        }// MAKE IT TRIGER THE OBSERVER IF THE NEW LIMIT IS EQUAL OR LESS THE CURRENT NUMBER OF ABSENCES
     }
     @Override
     public void displayDetails() {
@@ -77,7 +77,7 @@ public class Team implements Component {
                             entry.getKey() + ": " + entry.getValue()
                     });
                 }
-            }
+            } // I am still trying to figure out a way to get what Team the athlete is on this
         }
         return data;
     }

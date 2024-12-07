@@ -21,8 +21,8 @@ public class AbsencesController implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == absencesView.sportDropDown) {
-            Team selectedTeam = (Team) absencesView.sportDropDown.getSelectedItem();
+        if (e.getSource() == absencesView.sportDropDown2) {
+            Team selectedTeam = (Team) absencesView.sportDropDown2.getSelectedItem();
             updateAthletesList(selectedTeam);
         }
         else if (e.getSource() == absencesView.athleteDropDown) {
@@ -30,7 +30,7 @@ public class AbsencesController implements ActionListener {
             absencesView.updateClassDropDown(selectedAthlete);
         }
         else if (e.getSource() == absencesView.changeLimitButton) {
-            Team sport = (Team) absencesView.sportDropDown.getSelectedItem();
+            Team sport = (Team) absencesView.sportDropDown2.getSelectedItem();
             String absencesText = absencesView.limitAbsencesField.getText().trim();
             if (sport == null || absencesText.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please select a sport and enter a limit!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -68,7 +68,7 @@ public class AbsencesController implements ActionListener {
             welcomeView.setVisible(true);
         }
         else if (e.getSource() == absencesView.checkAbsencesButton){
-            Team sport = (Team)absencesView.sportDropDown.getSelectedItem();
+            Team sport = (Team)absencesView.sportDropDown2.getSelectedItem();
             Athlete athlete = (Athlete)absencesView.athleteDropDown.getSelectedItem();
             if (sport != null && athlete != null) {
                 checkAbsencesView(sport, athlete);
