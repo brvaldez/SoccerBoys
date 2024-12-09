@@ -1,7 +1,14 @@
-Name,Absences
-Manuel Rodriguez,C: 2
-Manuel Rodriguez,OOD: 2
-Manuel Rodriguez,PYTHON: 0
-Bruno VALDEZ,python: 0
-Bruno VALDEZ,c++: 0
-Bruno VALDEZ,c: 0
+Name,Sport,Absences
+BrunoValdez,Volley,python: 0
+BrunoValdez,Volley,ood: 1
+BrunoValdez,Volley,math: 0
+mannyviado,Volley,danca: 1
+mannyviado,Volley,pt: 2
+mannyviado,Volley,yoga: 1
+Name,Sport,Absences
+BrunoValdez,Volley,python: 0
+BrunoValdez,Volley,ood: 1
+BrunoValdez,Volley,math: 0
+mannyviado,Volley,danca: 1
+mannyviado,Volley,pt: 2
+mannyviado,Volley,yoga: 1

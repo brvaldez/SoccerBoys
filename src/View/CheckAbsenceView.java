@@ -4,7 +4,6 @@ import Model.Athlete;
 import Model.Component;
 import Model.Team;
 
-
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,8 +12,21 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+/**
+ * CheckAbsenceView class displays the absence information of athletes and teams.
+ * It can show the entire team's details or individual athlete's data, depending on the input.
+ * This class extends JFrame to create a GUI interface for checking absences.
+ *
+ * @authors Bruno Valdez & Manuel Rodriguez
+ */
 public class CheckAbsenceView extends JFrame {
 
+    /**
+     * Constructor to initialize and display the absence report window.
+     *
+     * @param sport The Team whose information is to be displayed
+     * @param athlete The Athlete whose individual information is to be displayed, if available
+     */
     public CheckAbsenceView(Team sport, Athlete athlete) {
         // Create a new JFrame for the report
         JFrame checkAbsencesFrame = new JFrame("Athlete/Team Report");

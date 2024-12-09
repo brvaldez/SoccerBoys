@@ -9,6 +9,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * RegisterAthleteView class provides the graphical interface for registering student athletes.
+ * This includes input fields for athlete details, sports selection, and buttons to register, clear, or return to the menu.
+ *
+ * @authors Bruno Valdez & Manuel Rodriguez
+ */
 public class RegisterAthleteView extends JFrame {
 
     public JTextField firstNameField, lastNameField, dobField, idField, emailField, class1Field, class2Field, class3Field;
@@ -16,7 +22,13 @@ public class RegisterAthleteView extends JFrame {
     public JComboBox<Team> sportDropDown;
     private List<Component> members;
     private AbsencesView absencesView;
-    // Create the frame
+
+    /**
+     * Constructor to initialize the RegisterAthleteView with necessary components and action listeners.
+     *
+     * @param welcomeView The WelcomeView instance to return to the main menu
+     * @param absencesView The AbsencesView instance to manage absences
+     */
     public RegisterAthleteView(WelcomeView welcomeView, AbsencesView absencesView) {
         super("Register Student Athlete");
         this.absencesView = absencesView;
@@ -35,6 +47,7 @@ public class RegisterAthleteView extends JFrame {
         clearButton.addActionListener(controller);
         returnButton.addActionListener(controller);
         sportDropDown.addActionListener(controller);
+
         // Pack to dynamically size the window
         pack();
         setMinimumSize(new Dimension(600, 400)); // Set a minimum size for usability
@@ -42,7 +55,11 @@ public class RegisterAthleteView extends JFrame {
         setVisible(true);
     }
 
-    // Panel with components
+    /**
+     * Creates and returns the main panel for the athlete registration form.
+     *
+     * @return The JPanel containing all components for the registration view
+     */
     public JPanel RegisterAthleteComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -137,6 +154,9 @@ public class RegisterAthleteView extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * Updates the sport dropdown menu with the current list of teams.
+     */
     public void updateTeamsDropDown() {
         sportDropDown.removeAllItems();
         for (Component team : Team.getMembers()) {
@@ -146,5 +166,4 @@ public class RegisterAthleteView extends JFrame {
         revalidate();
     }
 }
-
 

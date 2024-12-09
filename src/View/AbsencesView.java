@@ -3,8 +3,6 @@ package View;
 import Controller.AbsencesController;
 import Model.Athlete;
 import Model.Component;
-
-
 import Model.Team;
 
 import javax.swing.*;
@@ -14,7 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class: AbsencesView
+ * Purpose: The graphical user interface for managing and tracking athlete absences.
+ *          Provides options for changing the absence limit, adding/removing absences, checking absence records,
+ *          and generating reports.
+ * Authors: Bruno Valdez & Manuel Rodriguez
+ */
 public class AbsencesView extends JFrame {
+
     public JTextField limitAbsencesField;
     public JComboBox<Team> sportDropDown2;
     public JComboBox<Component> athleteDropDown;
@@ -23,6 +29,13 @@ public class AbsencesView extends JFrame {
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
     private List<Component> members;
 
+    /**
+     * Constructor to initialize the AbsencesView with the provided welcome view and list of members.
+     * Sets up the window and attaches action listeners for button events.
+     *
+     * @param welcomeView The WelcomeView that leads to this AbsencesView.
+     * @param members     The list of team members to be displayed in drop-downs.
+     */
     public AbsencesView(WelcomeView welcomeView, List<Component> members) {
         super("Absence Management");
         this.members = members;
@@ -50,15 +63,22 @@ public class AbsencesView extends JFrame {
         athleteDropDown.addActionListener(controller);
         athleteDropDown2.addActionListener(controller);
         checkAbsencesButton.addActionListener(controller);
-        /* Disable controls if no teams are available
+
+        // Check if there are members, enable controls accordingly
         if (members.isEmpty()) {
             disableAbsenceControls();
-        } else enableAbsenceControls();*/
+        } else {
+            enableAbsenceControls();
+        }
 
         setVisible(true);
     }
 
-    // Components for the Absences View
+    /**
+     * Sets up the main components for the Absences View with labels, text fields, drop-downs, and buttons.
+     *
+     * @return The main JPanel with all the components for Absences management.
+     */
     public JPanel AbsencesComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -170,6 +190,9 @@ public class AbsencesView extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * Updates the Teams drop-down menu based on available teams.
+     */
     public void updateTeamsDropDown() {
         sportDropDown2.removeAllItems();
         for (Component team : Team.getMembers()) {
@@ -178,12 +201,15 @@ public class AbsencesView extends JFrame {
         repaint();
         revalidate();
     }
-    // Update Athlete list based on the selected team
-    public void updateAthletesDropDown(List <Component> teamAthletes) {
+
+    /**
+     * Updates the Athlete drop-down menus based on the selected team.
+     *
+     * @param teamAthletes The list of athletes in the selected team.
+     */
+    public void updateAthletesDropDown(List<Component> teamAthletes) {
         athleteDropDown.removeAllItems();
         athleteDropDown2.removeAllItems();
-        //athleteDropDown.addItem((Component) new PlaceholderItem<Athlete>("Select an Athlete"));
-        //athleteDropDown2.addItem((Component) new PlaceholderItem<Athlete>("Select an Athlete"));
         for (Component athlete : teamAthletes) {
             if (athlete instanceof Athlete) {
                 athleteDropDown.addItem(athlete);
@@ -193,6 +219,12 @@ public class AbsencesView extends JFrame {
         repaint();
         revalidate();
     }
+
+    /**
+     * Updates the Class drop-down menu based on the selected athlete.
+     *
+     * @param athlete The athlete whose classes are to be displayed.
+     */
     public void updateClassDropDown(Athlete athlete) {
         if (athlete == null) {
             System.out.println("Athlete is null");
@@ -204,9 +236,7 @@ public class AbsencesView extends JFrame {
             System.out.println("No classes found for athlete: " + athlete.getName());
         } else {
             List<String> classNames = new ArrayList<>(classesMap.keySet());
-            System.out.println("Classes available: " + classNames);
             classDropDown.removeAllItems();
-            //classDropDown.addItem(String.valueOf(new PlaceholderItem<String>("Select a Class")));
             for (String className : classNames) {
                 classDropDown.addItem(className);
             }
@@ -214,7 +244,10 @@ public class AbsencesView extends JFrame {
             revalidate();
         }
     }
-    // Disable controls if there are no teams available
+
+    /**
+     * Disables all absence-related controls if no teams are available.
+     */
     private void disableAbsenceControls() {
         sportDropDown2.setEnabled(false);
         athleteDropDown.setEnabled(false);
@@ -228,7 +261,9 @@ public class AbsencesView extends JFrame {
         reportButton.setEnabled(false);
     }
 
-    // Enable absence controls when a team is created
+    /**
+     * Enables all absence-related controls when a team is created or available.
+     */
     public void enableAbsenceControls() {
         sportDropDown2.setEnabled(true);
         athleteDropDown.setEnabled(true);

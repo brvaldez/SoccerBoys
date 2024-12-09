@@ -5,13 +5,20 @@ import Model.Coach;
 import Model.Component;
 import Model.Team;
 
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * CreateTeamView class provides the graphical interface for managing teams.
+ * This includes adding new teams, changing coaches for teams, and removing teams.
+ * It is designed as a JFrame with various input fields and buttons for interacting with team data.
+ *
+ * @authors Bruno Valdez & Manuel Rodriguez
+ */
 public class CreateTeamView extends JFrame {
+
     public JTextField sportField, absencesField;
     public JButton addTeamButton, changeCoachButton, removeTeamButton, returnButton;
     public JComboBox<Component> sportDropdown2;
@@ -22,6 +29,14 @@ public class CreateTeamView extends JFrame {
     private AbsencesView absencesView;
     private RegisterAthleteView registerAthleteView;
 
+    /**
+     * Constructor to initialize the CreateTeamView with necessary components and action listeners.
+     *
+     * @param welcomeView The WelcomeView instance to return to the main menu
+     * @param absencesView The AbsencesView instance to manage absences
+     * @param registerAthleteView The RegisterAthleteView instance for athlete registration
+     * @param coaches List of coaches to populate dropdown menus
+     */
     public CreateTeamView(WelcomeView welcomeView, AbsencesView absencesView, RegisterAthleteView registerAthleteView, List<Coach> coaches) {
         super("Manage Teams");
         this.absencesView = absencesView;
@@ -54,6 +69,11 @@ public class CreateTeamView extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Creates and returns the main panel for the team management interface.
+     *
+     * @return The JPanel containing all components for the team management view
+     */
     public JPanel CreateTeamComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -140,11 +160,14 @@ public class CreateTeamView extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * Updates the dropdown menus with the current list of teams.
+     */
     public void updateTeamsDropDown() {
         sportDropdown2.removeAllItems();
         removeSportDropdown.removeAllItems();
         //sportDropdown2.addItem((Component) new PlaceholderItem<Team>("Insert a Sport"));
-       // removeSportDropdown.addItem((Component) new PlaceholderItem<Team>("Insert a Sport"));
+        // removeSportDropdown.addItem((Component) new PlaceholderItem<Team>("Insert a Sport"));
         for (Component team : Team.getMembers()) {
             sportDropdown2.addItem(team);
             removeSportDropdown.addItem(team);
@@ -153,6 +176,11 @@ public class CreateTeamView extends JFrame {
         revalidate();
     }
 
+    /**
+     * Updates the new coach dropdown to exclude the current coach of the selected team.
+     *
+     * @param selectedTeam The team for which the coach dropdown should be updated
+     */
     public void updateNewCoachDropDown(Team selectedTeam) {
         newCoachDropDown.removeAllItems();
         // Add only the coaches not assigned to the selected team
@@ -163,4 +191,3 @@ public class CreateTeamView extends JFrame {
         }
     }
 }
-
