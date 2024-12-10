@@ -32,7 +32,7 @@ public class RegisterAthleteView extends JFrame {
     public RegisterAthleteView(WelcomeView welcomeView, AbsencesView absencesView) {
         super("Register Student Athlete");
         this.absencesView = absencesView;
-        this.members = Team.getMembers();
+        //this.members = Team.getRootTeam().getMembers();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -159,7 +159,7 @@ public class RegisterAthleteView extends JFrame {
      */
     public void updateTeamsDropDown() {
         sportDropDown.removeAllItems();
-        for (Component team : Team.getMembers()) {
+        for (Component team : Team.getRootTeam().getMembers()) {
             sportDropDown.addItem((Team) team);
         }
         repaint();

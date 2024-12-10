@@ -21,28 +21,24 @@ public class CSVAdapter {
     public static void createCSV(List<String[]> data, boolean append) {
         String fileName = "Athlete Data - Sheet1.csv"; // Name of the CSV file to write data to.
 
-        // Validate file name.
+        // Validate inputs
         if (fileName == null || fileName.isEmpty()) {
             throw new IllegalArgumentException("File name cannot be null or empty.");
         }
-
-        // Check if there is data to write.
         if (data == null || data.isEmpty()) {
             System.out.println("No data to write to CSV file.");
             return;
         }
 
-        // Attempt to write data to the CSV file.
+        // Write data to file
         try (FileWriter writer = new FileWriter(fileName, append)) {
             for (String[] dataRow : data) {
-                writer.append(String.join(",", dataRow)); // Join row elements with commas.
-                writer.append("\n"); // Add a newline after each row.
+                writer.append(String.join(",", dataRow)); // Join row elements with commas
+                writer.append("\n"); // Add a newline after each row
             }
-            // Show a notification when the CSV creation is successful.
             JOptionPane.showMessageDialog(null, "Report created Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("CSV file created successfully: " + fileName);
         } catch (IOException e) {
-            // Handle exceptions related to file I/O.
             e.printStackTrace();
             System.out.println("Error creating CSV file.");
         }

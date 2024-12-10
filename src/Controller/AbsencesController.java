@@ -3,13 +3,17 @@ package Controller;
 import Model.*;
 import View.AbsencesView;
 import View.CheckAbsenceView;
+import View.PlaceHolderAthlete;
 import View.WelcomeView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static Model.CSVAdapter.createCSV;
 
 /**
  * Class: AbsencesController
@@ -40,11 +44,17 @@ public class AbsencesController implements ActionListener {
         if (e.getSource() == absencesView.sportDropDown2) {
             // Update athletes list when a team is selected
             Team selectedTeam = (Team) absencesView.sportDropDown2.getSelectedItem();
+            //absencesView.enableAbsenceControls();
             updateAthletesList(selectedTeam);
         } else if (e.getSource() == absencesView.athleteDropDown) {
             // Update class dropdown when an athlete is selected
             Athlete selectedAthlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
-            absencesView.updateClassDropDown(selectedAthlete);
+            if (selectedAthlete instanceof PlaceHolderAthlete) {
+                absencesView.classDropDown.setEnabled(false);
+                absencesView.classDropDown.removeAllItems();
+            } else {
+                absencesView.classDropDown.setEnabled(true);
+                absencesView.updateClassDropDown(selectedAthlete);}
         } else if (e.getSource() == absencesView.changeLimitButton) {
             // Change the absence limit for the selected team
             Team sport = (Team) absencesView.sportDropDown2.getSelectedItem();
@@ -65,18 +75,21 @@ public class AbsencesController implements ActionListener {
             // Insert an absence for the selected athlete and class
             Athlete athlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
             String classMissed = absencesView.classDropDown.getSelectedItem().toString();
-            if (athlete == null || classMissed.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please select an athlete and a class!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            if (athlete instanceof PlaceHolderAthlete) {
+                JOptionPane.showMessageDialog(null, "Please select an athlete!!!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else{
+            JOptionPane.showMessageDialog(null, "Absence inserted!", "Information", JOptionPane.INFORMATION_MESSAGE);}
             insertAbsence(athlete, classMissed);
         } else if (e.getSource() == absencesView.removeAbsenceButton) {
             // Remove an absence for the selected athlete and class
             Athlete athlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
             String classMissed = absencesView.classDropDown.getSelectedItem().toString();
+            JOptionPane.showMessageDialog(null, "Absence removed!", "Information", JOptionPane.INFORMATION_MESSAGE);
             removeAbsence(athlete, classMissed);
         } else if (e.getSource() == absencesView.reportButton) {
             // Generate and display a report
-            createReport();
+            Team team = (Team) absencesView.sportDropDown2.getSelectedItem();
+            createReport(team);
         } else if (e.getSource() == absencesView.returnButton) {
             // Return to the welcome view
             absencesView.setVisible(false);
@@ -85,10 +98,12 @@ public class AbsencesController implements ActionListener {
             // Open the view to check absences for a sport and athlete
             Team sport = (Team) absencesView.sportDropDown2.getSelectedItem();
             Athlete athlete = (Athlete) absencesView.athleteDropDown.getSelectedItem();
-            if (sport != null && athlete != null) {
+            if (athlete instanceof PlaceHolderAthlete) {
+                // Call checkAbsencesView with the team only
+                checkAbsencesView(sport, null);
+            } else if (athlete != null) {
+                // Call checkAbsencesView with both team and athlete
                 checkAbsencesView(sport, athlete);
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a sport and an athlete!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -98,8 +113,12 @@ public class AbsencesController implements ActionListener {
      * @param selectedTeam the selected team.
      */
     public void updateAthletesList(Team selectedTeam) {
-        List<Component> teamAthletes = selectedTeam.getMembers(); // Assuming `getMembers` returns the list of athletes
-        absencesView.updateAthletesDropDown(teamAthletes);
+        if(selectedTeam == null) {
+            return;
+        }
+        selectedTeam.getMembers(); // Assuming `getMembers` returns the list of athletes
+        System.out.println(selectedTeam.getMembers());
+        absencesView.updateAthletesDropDown(selectedTeam.getMembers());
     }
 
     /**
@@ -159,8 +178,8 @@ public class AbsencesController implements ActionListener {
     /**
      * Creates a CSV report of the absences data.
      */
-    public void createReport() {
-        List<String[]> data = Team.collectDataForCSV();
-        CSVAdapter.createCSV(data, true);
+    public void createReport(Team team) {
+        List<String[]> data = team.collectDataForCSV();
+        createCSV(data, true);
     }
 }

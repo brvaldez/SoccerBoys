@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class WelcomeController implements ActionListener {
     private WelcomeView welcomeView;
-    private List<Component> teams; // List of all teams
+    //private List<Component> teams; // List of all teams
     private List<Coach> coaches;  // List of all coaches
     private CreateTeamView createTeamView;
     private RegisterAthleteView registerAthleteView;
@@ -34,11 +34,11 @@ public class WelcomeController implements ActionListener {
      * @param teams the list of teams available.
      * @param coaches the list of coaches available.
      */
-    public WelcomeController(WelcomeView welcomeView, AbsencesView absencesView, RegisterAthleteView registerAthleteView, List<Component> teams, List<Coach> coaches) {
+    public WelcomeController(WelcomeView welcomeView, AbsencesView absencesView, RegisterAthleteView registerAthleteView, List<Coach> coaches) {
         this.welcomeView = welcomeView;
         this.absencesView = absencesView;
         this.registerAthleteView = registerAthleteView;
-        this.teams = Team.getMembers(); // Retrieve all team members
+        //this.teams = Team.getRootTeam().getMembers();
         this.coaches = coaches; // Store the list of coaches
     }
 
@@ -72,7 +72,7 @@ public class WelcomeController implements ActionListener {
             // Navigate to AbsencesView
             if (absencesView == null) {
                 // Initialize AbsencesView if not already created
-                absencesView = new AbsencesView(welcomeView, teams);
+                absencesView = new AbsencesView(welcomeView);
             } else {
                 // Make the view visible
                 absencesView.setVisible(true);

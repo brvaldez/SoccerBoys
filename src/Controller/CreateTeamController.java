@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Model.Team.rootTeam;
+
 /**
  * Class: CreateTeamController
  * Purpose: This class handles the creation and management of teams in the application.
@@ -60,17 +62,18 @@ public class CreateTeamController implements ActionListener {
 
             Team team = new Team(sport, coach, absences);
             addTeam(team);
-
+            JOptionPane.showMessageDialog(null,sport + " team created!", "Information", JOptionPane.INFORMATION_MESSAGE);
         } else if (e.getSource() == createTeamView.changeCoachButton) {
             // Handle changing the coach for an existing team
             Team team = (Team) createTeamView.sportDropdown2.getSelectedItem();
             Coach newCoach = (Coach) createTeamView.newCoachDropDown.getSelectedItem();
-            team.setCoach(newCoach);
+            JOptionPane.showMessageDialog(null,  team + "'s, coach changed!", "Information", JOptionPane.INFORMATION_MESSAGE);
+            changeCoach(team, newCoach);
         } else if (e.getSource() == createTeamView.removeTeamButton) {
             // Handle removing a team
             Team sport = (Team) createTeamView.removeSportDropdown.getSelectedItem();
             if (sport == null) {
-                JOptionPane.showMessageDialog(absencesView, "Please select a valid athlete!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(absencesView, "Please select a valid team!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             removeTeam(sport);
@@ -92,7 +95,8 @@ public class CreateTeamController implements ActionListener {
      * @param team the team to be added.
      */
     public void addTeam(Team team) {
-        Team.addMember(team); // Add the team to the model
+        Team.rootTeam.addMember(team); // Add the team to the model
+        absencesView.sportDropDown2.setEnabled(true);
         createTeamView.updateTeamsDropDown(); // Update the dropdown in the team creation view
         absencesView.updateTeamsDropDown(); // Update the dropdown in the absences view
         registerAthleteView.updateTeamsDropDown(); // Update the dropdown in the athlete registration view
@@ -112,7 +116,7 @@ public class CreateTeamController implements ActionListener {
      * @param team the team to be removed.
      */
     public void removeTeam(Team team) {
-        Team.removeMember(team); // Remove the team from the model
+        Team.rootTeam.removeMember(team); // Remove the team from the model
         createTeamView.updateTeamsDropDown(); // Update the dropdown in the team creation view
         absencesView.updateTeamsDropDown(); // Update the dropdown in the absences view
         registerAthleteView.updateTeamsDropDown(); // Update the dropdown in the athlete registration view

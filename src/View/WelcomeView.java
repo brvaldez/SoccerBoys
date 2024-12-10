@@ -20,7 +20,6 @@ import java.util.List;
 public class WelcomeView extends JFrame {
 
     public JButton createTeamButton, registerAthleteButton, absencesButton;
-    private List<Component> teams = new ArrayList<>();
     private List<Coach> coaches;
     private AbsencesView absencesView;
     private RegisterAthleteView registerAthleteView;
@@ -31,7 +30,7 @@ public class WelcomeView extends JFrame {
     public WelcomeView() {
         super("Welcome Coach!!!");
         this.registerAthleteView = new RegisterAthleteView(this, absencesView);
-        this.absencesView = new AbsencesView(this, teams);
+        this.absencesView = new AbsencesView(this);
         coaches = new ArrayList<>();
 
         // Adding default coaches
@@ -40,7 +39,7 @@ public class WelcomeView extends JFrame {
         coaches.add(new Coach("Tania Roy"));
 
         // Initializing the controller
-        WelcomeController controller = new WelcomeController(this, absencesView, registerAthleteView, teams, coaches);
+        WelcomeController controller = new WelcomeController(this, absencesView, registerAthleteView, coaches);
 
         // Set the visibility of other views to false initially
         registerAthleteView.setVisible(false);

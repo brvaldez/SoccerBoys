@@ -27,18 +27,17 @@ public class AbsencesView extends JFrame {
     public JComboBox<Component> athleteDropDown2;
     public JComboBox<String> classDropDown;
     public JButton changeLimitButton, insertAbsenceButton, removeAbsenceButton, checkAbsencesButton, reportButton, returnButton;
-    private List<Component> members;
+
 
     /**
      * Constructor to initialize the AbsencesView with the provided welcome view and list of members.
      * Sets up the window and attaches action listeners for button events.
      *
      * @param welcomeView The WelcomeView that leads to this AbsencesView.
-     * @param members     The list of team members to be displayed in drop-downs.
      */
-    public AbsencesView(WelcomeView welcomeView, List<Component> members) {
+    public AbsencesView(WelcomeView welcomeView) {
         super("Absence Management");
-        this.members = members;
+        //this.members = members;
 
         // Window setup
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,10 +64,10 @@ public class AbsencesView extends JFrame {
         checkAbsencesButton.addActionListener(controller);
 
         // Check if there are members, enable controls accordingly
-        if (members.isEmpty()) {
-            disableAbsenceControls();
-        } else {
+        if (Team.getRootTeam().getMembers().isEmpty()) {
             enableAbsenceControls();
+        } else {
+            disableAbsenceControls();
         }
 
         setVisible(true);
@@ -195,7 +194,7 @@ public class AbsencesView extends JFrame {
      */
     public void updateTeamsDropDown() {
         sportDropDown2.removeAllItems();
-        for (Component team : Team.getMembers()) {
+        for (Component team : Team.getRootTeam().getMembers()) {
             sportDropDown2.addItem((Team) team);
         }
         repaint();
@@ -210,15 +209,20 @@ public class AbsencesView extends JFrame {
     public void updateAthletesDropDown(List<Component> teamAthletes) {
         athleteDropDown.removeAllItems();
         athleteDropDown2.removeAllItems();
+        athleteDropDown.addItem(new PlaceHolderAthlete());
+        athleteDropDown2.addItem(new PlaceHolderAthlete());
         for (Component athlete : teamAthletes) {
             if (athlete instanceof Athlete) {
+                if (teamAthletes.isEmpty()){
+                    return;
+                } else {
                 athleteDropDown.addItem(athlete);
                 athleteDropDown2.addItem(athlete);
             }
         }
         repaint();
         revalidate();
-    }
+    }}
 
     /**
      * Updates the Class drop-down menu based on the selected athlete.
@@ -227,22 +231,17 @@ public class AbsencesView extends JFrame {
      */
     public void updateClassDropDown(Athlete athlete) {
         if (athlete == null) {
-            System.out.println("Athlete is null");
+            classDropDown.removeAllItems();
             return;
         }
-
         Map<String, ?> classesMap = athlete.getClasses();
-        if (classesMap.isEmpty()) {
-            System.out.println("No classes found for athlete: " + athlete.getName());
-        } else {
-            List<String> classNames = new ArrayList<>(classesMap.keySet());
-            classDropDown.removeAllItems();
-            for (String className : classNames) {
-                classDropDown.addItem(className);
-            }
-            repaint();
-            revalidate();
+        List<String> classNames = new ArrayList<>(classesMap.keySet());
+        classDropDown.removeAllItems();
+        for (String className : classNames) {
+            classDropDown.addItem(className);
         }
+        repaint();
+        revalidate();
     }
 
     /**
@@ -272,7 +271,7 @@ public class AbsencesView extends JFrame {
         changeLimitButton.setEnabled(true);
         insertAbsenceButton.setEnabled(true);
         removeAbsenceButton.setEnabled(true);
-        athleteDropDown2.setEnabled(false);
+        athleteDropDown2.setEnabled(true);
         checkAbsencesButton.setEnabled(true);
         reportButton.setEnabled(true);
     }

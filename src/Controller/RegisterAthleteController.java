@@ -54,7 +54,7 @@ public class RegisterAthleteController implements ActionListener {
             Team athleteTeam = (Team) registerAthleteView.sportDropDown.getSelectedItem();
 
             // Validate that all required fields are filled
-            if (firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || email.isEmpty() || id.isEmpty()) {
+            if (firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || email.isEmpty() || id.isEmpty() || class1.isEmpty() || class2.isEmpty() || class3.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -86,7 +86,10 @@ public class RegisterAthleteController implements ActionListener {
             // Add the athlete to the selected team
             addAthlete(athlete, athleteTeam);
 
-            // Clear the input fields
+            // Notification for the athlete just registered
+            JOptionPane.showMessageDialog(null, "New athlete registered!", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+        // Clear the input fields
             clearFields();
         } else if (e.getSource() == registerAthleteView.clearButton) {
             // Clear input fields

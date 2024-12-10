@@ -5,25 +5,33 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class: Team
- * Purpose: Represents a sports team, managing members (Athletes) and their coach.
- *          Handles the tracking of absences, notifying the coach, and displaying member details.
- * Authors: Bruno Valdez & Manuel Rodriguez
+ * The Team class represents a group of members, including athletes, managed by a coach.
+ * It implements the Component interface, allowing it to participate in a composite structure with other Components.
+ * This class also incorporates the Observer pattern for notifying the coach about specific events such as exceeding absence limits.
  */
 public class Team implements Component {
 
     private String teamName;
-    public static List<Component> members = new ArrayList<>(); // List to hold TeamComponent objects
+    private List<Component> members = new ArrayList<>(); // List to hold Athletes Component objects
+    public static Team rootTeam;
     private static Observer observer;
     public static int absencesLimit;
     private Coach coach;
 
     /**
-     * Constructor to initialize a Team with a name, coach, and absences limit.
+     * Using a static block to make sure the rootTeam is initiated
+     */
+    static {
+        rootTeam = new Team("All Teams", null, 0); // Prevent adding itself to root
+    }
+
+    /**
+     * Constructs a new Team with the specified name, coach, and absences limit.
+     * The team is automatically added to the root team list upon creation.
      *
-     * @param teamName   The name of the team.
-     * @param coach      The coach of the team.
-     * @param absencesLimit The maximum allowed absences for the team.
+     * @param teamName The name of the team.
+     * @param coach The coach associated with the team, who acts as an observer.
+     * @param absencesLimit The maximum number of absences allowed for the team.
      */
     public Team(String teamName, Coach coach, int absencesLimit) {
         this.teamName = teamName;
@@ -31,6 +39,34 @@ public class Team implements Component {
         this.absencesLimit = absencesLimit;
         this.observer = coach;
     }
+
+    /**
+     * Retrieves the list of all teams in the team root list.
+     *
+     * @return The list of all teams.
+     */
+    public static Team getRootTeam() {
+        return rootTeam;
+    }
+
+    /**
+     * Adds a member (Team) to the root team.
+     *
+     * @param team The member (Team) to be added to the root team.
+     */
+    private static void addTeamToRoot(Team team) {
+        Team.rootTeam.addMember(team);
+    }
+
+    /**
+     * Removes a member (Team) to the root team.
+     *
+     * @param team The member (Team) to be removed to the root team.
+     */
+    private static void removeTeamToRoot(Team team) {
+        Team.rootTeam.removeMember(team);
+    }
+
 
     /**
      * Notifies the observer (coach) of an event, such as exceeding the absences limit.
@@ -42,20 +78,20 @@ public class Team implements Component {
     }
 
     /**
-     * Adds a member (Athlete or another Team) to the team.
+     * Adds a member (Athlete) to the team.
      *
-     * @param member The member (Athlete or Team) to be added to the team.
+     * @param member The member (Athlete) to be added to the team.
      */
-    public static void addMember(Component member) {
+    public void addMember(Component member) {
         members.add(member);
     }
 
     /**
-     * Removes a member (Athlete or another Team) from the team.
+     * Removes a member (Athlete) from the team.
      *
-     * @param member The member (Athlete or Team) to be removed from the team.
+     * @param member The member (Athlete) to be removed from the team.
      */
-    public static void removeMember(Component member) {
+    public void removeMember(Component member) {
         members.remove(member);
     }
 
@@ -64,7 +100,7 @@ public class Team implements Component {
      *
      * @return The list of members in the team.
      */
-    public static List<Component> getMembers() {
+    public List<Component> getMembers() {
         return members;
     }
 
@@ -140,9 +176,9 @@ public class Team implements Component {
      *
      * @return A list of string arrays containing the data for CSV export.
      */
-    public static List<String[]> collectDataForCSV() {
+    public List<String[]> collectDataForCSV() {
         List<String[]> data = new ArrayList<>();
-        data.add(new String[]{"Name", "Absences"});
+        data.add(new String[]{"Name", "Team", "Absences"});
 
         for (Component member : members) {
             if (member instanceof Athlete) {
@@ -152,6 +188,7 @@ public class Team implements Component {
                 for (Map.Entry<String, Integer> entry : classes.entrySet()) {
                     data.add(new String[]{
                             athlete.getName(),
+                            teamName,
                             entry.getKey() + ": " + entry.getValue()
                     });
                 }

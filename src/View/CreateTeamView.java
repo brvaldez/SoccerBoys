@@ -25,7 +25,7 @@ public class CreateTeamView extends JFrame {
     public JComboBox<Component> removeSportDropdown;
     public JComboBox<Coach> coachDropDown, newCoachDropDown;
     private List<Coach> coaches;
-    private List<Component> teams;
+    //private List<Component> teams;
     private AbsencesView absencesView;
     private RegisterAthleteView registerAthleteView;
 
@@ -42,7 +42,7 @@ public class CreateTeamView extends JFrame {
         this.absencesView = absencesView;
         this.registerAthleteView = registerAthleteView;
         this.coaches = coaches;
-        this.teams = Team.getMembers();
+        //this.teams = Team.getRootTeam().getMembers();
 
         // Window setup
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -166,9 +166,7 @@ public class CreateTeamView extends JFrame {
     public void updateTeamsDropDown() {
         sportDropdown2.removeAllItems();
         removeSportDropdown.removeAllItems();
-        //sportDropdown2.addItem((Component) new PlaceholderItem<Team>("Insert a Sport"));
-        // removeSportDropdown.addItem((Component) new PlaceholderItem<Team>("Insert a Sport"));
-        for (Component team : Team.getMembers()) {
+        for (Component team : Team.getRootTeam().getMembers()) {
             sportDropdown2.addItem(team);
             removeSportDropdown.addItem(team);
         }
